@@ -1,8 +1,30 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/task/index",
+    "pages/list/index"
   ],
   "window": {
-    "defaultTitle": "My App"
-  }
+    "defaultTitle": "拜访任务",
+      "backgroundColor": "#F5F5F9"
+  },
+  "tabBar": {
+    "textColor": "#404040",
+    "selectedColor": "#108ee9",
+    "backgroundColor": "#F5F5F9",
+    "items": [
+      {
+        "pagePath": "pages/task/index",
+        "icon": "image/tasks.png",
+        "activeIcon": "image/tasks_hl.png",
+        "name": "当前任务"
+      },
+      {
+        "pagePath": "pages/list/index",
+        "icon": "image/list.png",
+        "activeIcon": "image/list_hl.png",
+        "name": "任务列表"
+      }
+    ]
+  },
+  "debug": true
 }

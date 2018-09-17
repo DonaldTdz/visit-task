@@ -27,9 +27,9 @@ Page({
   onShareAppMessage() {
     // 返回自定义分享信息
     return {
-      title: 'My App',
-      desc: 'My App description',
-      path: 'pages/index/index',
+      title: '任务列表',
+      desc: '所有任务列表',
+      path: 'pages/list/index',
     };
   },
 });
