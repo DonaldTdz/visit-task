@@ -4,7 +4,8 @@
   <view slot="header">待执行拜访任务列表</view>
   <block a:for="{{items}}">
     <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{item.arrow}}" wrap="{{true}}" >
-      <image style="width: 18px; height:18px; margin-left:5px;margin-right:5px;margin-top:8px; margin-buttom:0px;" mode="{{'aspectFill'}}" src="{{item.thumb}}"  />{{item.title}}      
+<view class="fsize14"><image style="width: 18px; height:18px; margin-left:5px;margin-right:5px;margin-top:5px; margin-bottom:0px;" mode="{{'aspectFill'}}" src="{{item.thumb}}"  />
+     {{item.title}}</view>      
       <view class="am-list-brief fsize12">{{item.brief}}</view> 
       <view class="am-list-brief fsize12">{{item.brief2}}</view>     
      <view slot="extra" class="fsize12">{{item.extra}}</view>
