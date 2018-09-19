@@ -1,3 +1,7 @@
 .taskview {
  width:100%;
 }
+
+.fsize12{
+  font-size: 12px;
+}
