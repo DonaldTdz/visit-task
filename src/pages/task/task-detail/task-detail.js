@@ -1,6 +1,19 @@
 Page({
   data:{
-    id:''
+    id:'',
+    items: [
+      {
+        thumb:'../../../image/datetime.png',
+        title: '开始时间',
+        extra:'2018-10-01'
+      },
+      {
+        thumb: '../../../image/datetime.png',
+        title: '结束时间',
+        extra: '2018-10-31'
+      }
+    ],
+
   },
   onLoad(query) {
     this.setData({id: query.id});

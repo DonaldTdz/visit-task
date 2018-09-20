@@ -1,5 +1,7 @@
 <view class="taskview">
+  <view>
   <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.position}}" />
+  </view>
   <view hidden="{{items.length == 0}}">
     <list>
       <view slot="header">待执行拜访任务列表</view>
@@ -17,6 +19,6 @@
   </view>
   <view class="item ddcenter" hidden="{{items.length != 0}}">
     <icon type="success" size="80" color="green"/>
-    <text style="color:gray; margin-top:10px;">你的任务都已经完成了</text>
+    <text style="color:gray; margin-top:10px;">没有待拜访的任务</text>
   </view>
 </view>

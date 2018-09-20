@@ -2,14 +2,6 @@
  width:100%;
 }
 
-.fsize12{
-  font-size: 12px;
-}
-
-.fsize14{
-  font-size: 14px;
-}
-
 .wb30{
   width: 30%;
 }
@@ -35,4 +27,11 @@
   margin-top: 100px;
   align-items: center;
   -webkit-align-items: center;
+}
+.fsize12{
+  font-size: 12px;
+}
+
+.fsize14{
+  font-size: 14px;
 }

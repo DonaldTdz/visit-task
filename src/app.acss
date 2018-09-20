@@ -1,5 +1,19 @@
-page {
-  flex: 1;
-  display: flex;
-  background: #f7f7f7;
+
+.page-section {
+  background: #fff;
+  margin-bottom: 32rpx;
 }
+
+.page-section-title {
+  padding: 16rpx 32rpx;
+}
+
+.page-padding{
+ padding: 32rpx;
+}
+
+.page-margin{
+  border-radius: 4px;
+  margin: 6px 10px;
+}
+

@@ -1,3 +1,16 @@
-<view>
-  任务详情页
+<view class="width100">
+  <card title="备耕（技术服务）" subTitle="2018年10月份拜访计划" footer="未开始（剩余10天）" footerImg="../../../image/icon_status-dot-GR.png" />
+  <view class="page-section page-padding page-margin">
+    进度<progress percent="20" show-info/>
+  </view>
+  <view class="page-margin">
+    <list>
+      <view slot="header">任务信息</view>
+      <block a:for="{{items}}">
+        <list-item key="item-{{index}}" thumb="{{item.thumb}}" index="{{index}}" last="{{index === (items.length - 1)}}">      {{item.title}}            
+          <view slot="extra">    {{item.extra}}  </view>
+        </list-item>
+      </block>
+    </list>
+  </view>
 </view>

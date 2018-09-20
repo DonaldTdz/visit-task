@@ -7,7 +7,6 @@
   min-height: 81px;
   flex-direction: column;
   padding: 0 16px;
-  width:100%;
 }
 
 .am-card.am-card-active {
