@@ -1,16 +1,22 @@
 <view class="taskview">
-<card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.position}}"  />
-<list>
-  <view slot="header">待执行拜访任务列表</view>
-  <block a:for="{{items}}">
-    <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{item.arrow}}" wrap="{{true}}" >
-<view class="fsize14"><image style="width: 18px; height:18px; margin-left:5px;margin-right:5px;margin-top:5px; margin-bottom:0px;" mode="{{'aspectFill'}}" src="{{item.thumb}}"  />
-     {{item.title}}</view>      
-      <view class="am-list-brief fsize12">{{item.brief}}</view> 
-      <view class="am-list-brief fsize12">{{item.brief2}}</view>     
-     <view slot="extra" class="fsize12">{{item.extra}}</view>
-    </list-item>
-  </block>
-</list>
+  <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.position}}" />
+  <view hidden="{{items.length == 0}}">
+    <list>
+      <view slot="header">待执行拜访任务列表</view>
+      <block a:for="{{items}}">
+        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goDetalil">
+          <view class="fsize14">
+            <image style="width: 18px; height:18px; margin-left:5px;margin-right:5px;margin-top:5px; margin-bottom:0px;" mode="{{'aspectFill'}}" src="{{item.thumb}}" />     {{item.title}}
+          </view>
+          <view class="am-list-brief fsize12">{{item.desc}}</view>
+          <view class="am-list-brief fsize12">截止时间：{{item.endTimeFormat}}</view>
+          <view slot="extra" class="fsize12">{{item.extra}}</view>
+        </list-item>
+      </block>
+    </list>
+  </view>
+  <view class="item ddcenter" hidden="{{items.length != 0}}">
+    <icon type="success" size="80" color="green"/>
+    <text style="color:gray; margin-top:10px;">你的任务都已经完成了</text>
+  </view>
 </view>
-

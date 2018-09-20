@@ -3,37 +3,16 @@ let app = getApp();
 Page({
   data: {
     userInfo: { id: '', name: '', position: '', avatar: '' },
-    items: [
-      {
-        title: '备耕（技术服务）',
-        thumb: '../../image/warn.png',
-        brief: '已拜访1次共2次',
-        brief2: '截止时间：2018-09-19',
-        extra:'剩余1天',
-        arrow: true,
-      },
-      {
-        title: '田管（技术服务）',
-        thumb: '../../image/warn_y.png',
-        brief: '已拜访0次共2次',
-        brief2: '截止时间：2018-09-19',
-        extra: '剩余5天',
-        arrow: true,
-      },
-      {
-        title: '物资发放（生产管理）',
-        thumb: '../../image/icon-tasknor.png',
-        brief: '已拜访0次共2次',
-        brief2: '截止时间：2018-09-19',
-        extra: '剩余10天',
-        arrow: true,
-      },
-    ],
-
+    items: [],
   },
   onLoad(query) {
-    console.info(`app.globalData: ${JSON.stringify(app.globalData)}`);
-    if (app.globalData.userInfo.id == ''){
+    //console.info(`app.globalData: ${JSON.stringify(app.globalData)}`);
+    this.loginSys();
+    // 页面加载
+    console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
+  },
+  loginSys(){
+    if (app.globalData.userInfo.id == '') {
       dd.showLoading();
       //免登陆
       dd.getAuthCode({
@@ -51,11 +30,13 @@ Page({
               app.globalData.userInfo = res.data.result;
               //console.log('app user info', app.userInfo);
               this.setData({ userInfo: app.globalData.userInfo });
+
+              this.getScheduleTasks();
               //this.userInfo = res.data.result;
               //dd.alert({ content: 'success' });
             },
             fail: function(res) {
-              dd.alert({ content: 'fail' });
+              dd.alert({ content: '获取用户信息异常' });
             },
             complete: function(res) {
               dd.hideLoading();
@@ -64,13 +45,40 @@ Page({
           });
         },
         fail: function(err) {
+          dd.alert({ content: '授权出错' });
         }
       });
-    } else{
+    } else {
       this.setData({ userInfo: app.globalData.userInfo });
+
+      this.getScheduleTasks();
     }
-    // 页面加载
-    console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
+  },
+  getScheduleTasks(){
+    dd.showLoading();
+    dd.httpRequest({
+      url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingScheduleTaskListAsycn',
+      method: 'Get',
+      data: {
+        userId: this.data.userInfo.id,
+      },
+      dataType: 'json',
+      success: (res) => {
+        this.setData({ items: res.data.result });
+      },
+      fail: function(res) {
+        dd.alert({ content: '获取任务异常' });
+      },
+      complete: function(res) {
+        dd.hideLoading();
+      }
+    });
+  },
+  goDetalil(data){
+    //console.info(`dd data: ${JSON.stringify(data)}`);
+    dd.navigateTo({
+      url: "./task-detail/task-detail?id=" + this.data.items[data.index].id,
+    });
   },
   onReady() {
     // 页面加载完成

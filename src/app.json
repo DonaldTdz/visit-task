@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/task/index",
-    "pages/list/index"
+    "pages/list/index",
+    "pages/task/task-detail/task-detail"
   ],
   "window": {
     "defaultTitle": "拜访任务",
