@@ -1,31 +1,41 @@
 <view class="width100">
-  <card title="唐全华" subTitle="浇水（技术服务）" footer="已完成2次拜访共4次拜访" />
+  <card title="{{vgDetail.growerInfo.name}}" thumb="../../../image/farmer_GR.png" subTitle="{{vgDetail.growerInfo.unitName}}" arrow={{false}}  />
   <view class="page-margin">
     <list>
-      <view slot="header">烟农基本信息</view>
-      <list-item class="fsize14" wrap="{{true}}" >
-        <view class="fsize14">烟农单位</view>
-        <view slot="extra" class="fsize14">张家烟叶生产收购点</view>
+      <view slot="header">拜访任务</view>
+      <list-item wrap="{{true}}">
+        <view>{{vgDetail.taskTitle}}</view>
+        <view class="am-list-brief">{{vgDetail.footer}}</view>
       </list-item>
-      <list-item class="fsize14">
-        <view class="fsize14">烟农地址</view>
-        <view slot="extra" class="fsize14">张家乡回龙村一社</view>
+    </list>
+  </view>
+  <view class="page-margin">
+    <list>
+      <view slot="header">基本信息</view>
+      <list-item>
+        <view>烟农地址</view>
+        <view class="am-list-brief">{{vgDetail.growerInfo.address}}</view>
       </list-item>
-      <list-item class="fsize14">
-        <view class="fsize14">联系电话</view>
-        <view slot="extra" class="fsize14">17723438090</view>
+      <list-item>
+        <view>联系电话</view>
+        <view slot="extra">{{vgDetail.growerInfo.tel}}</view>
       </list-item>
-      <list-item class="fsize14">
-        <view class="fsize14">种植面积</view>
-        <view slot="extra" class="fsize14">35.00（亩）</view>
+      <list-item>
+        <view>种植面积</view>
+        <view slot="extra">{{vgDetail.growerInfo.plantingArea}}（亩）</view>
       </list-item>
     </list>
   </view>
   <view class="page-margin page-padding-bottom">
     <list>
-      <view slot="header">拜访记录（本任务还差2次）</view>
-      <block a:for="{{visits}}">
-        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" >      {{item.location}}                                               
+      <view slot="header">拜访记录（{{(vgDetail.visitNum - vgDetail.completeNum) == 0? "全部完成" : "本任务还差"+(vgDetail.visitNum - vgDetail.completeNum)+"次"}}）</view>
+      <block a:if="{{vgDetail.visitRecords.length == 0}}">
+        <list-item last="true">
+          <view class="nodata">还没有拜访记录</view>
+        </list-item>
+      </block>
+      <block a:for="{{vgDetail.visitRecords}}">
+        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.location}}                                                                                       
           <view slot="extra" class="fsize12">    {{item.creationTimeFormat}} </view>
         </list-item>
       </block>

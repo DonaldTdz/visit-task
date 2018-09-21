@@ -13,3 +13,9 @@
 .fsize14{
   font-size: 14px;
 }
+
+.nodata{
+  text-align: center;
+  font-size: 14px;
+  color: gray;
+}

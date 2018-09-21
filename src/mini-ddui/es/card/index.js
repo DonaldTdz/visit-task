@@ -2,7 +2,8 @@ Component({
   props: {
     title: '',
     onClick: function onClick() {},
-    info: ''
+    info: '',
+    arrow: true
   },
   methods: {
     onCardClick: function onCardClick() {

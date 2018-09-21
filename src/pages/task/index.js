@@ -15,14 +15,14 @@ Page({
     if (app.globalData.userInfo.id == '') {
       dd.showLoading();
       //免登陆
-      dd.getAuthCode({
-        success: (res) => {
-          console.log('My authCode', res.authCode);
+      //dd.getAuthCode({
+        //success: (res) => {
+        //  console.log('My authCode', res.authCode);
           dd.httpRequest({
             url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
             method: 'Get',
             data: {
-              code: res.authCode,
+              code: '',//res.authCode,
             },
             dataType: 'json',
             success: (res) => {
@@ -43,14 +43,14 @@ Page({
               //dd.alert({ content: 'complete' });
             }
           });
-        },
-        fail: function(err) {
-          dd.alert({ content: '授权出错' });
-        }
-      });
+        //},
+        //fail: function(err) {
+        //  dd.alert({ content: '授权出错' });
+        //  dd.hideLoading();
+        //}
+      //});
     } else {
       this.setData({ userInfo: app.globalData.userInfo });
-
       this.getScheduleTasks();
     }
   },
