@@ -1,14 +1,27 @@
 <view class="width100">
-  <card title="备耕（技术服务）" subTitle="2018年10月份拜访计划" footer="未开始（剩余10天）" footerImg="../../../image/icon_status-dot-GR.png" />
-  <view class="page-section page-padding page-margin">
-    进度<progress percent="20" show-info/>
+  <card title="{{schedule.taskTitle}}" subTitle="{{schedule.scheduleTitle}}" footer="{{schedule.statusDesc + '（剩余'+schedule.endDay+'天）'}}" footerImg="{{schedule.statusImg}}" />
+  <view class="page-section page-padding page-margin">进度(已完成{{schedule.completeNum}}次共{{schedule.visitTotal}}次)    
+    <progress percent="{{schedule.percent}}" show-info/>
   </view>
   <view class="page-margin">
     <list>
-      <view slot="header">任务信息</view>
-      <block a:for="{{items}}">
-        <list-item key="item-{{index}}" thumb="{{item.thumb}}" index="{{index}}" last="{{index === (items.length - 1)}}">      {{item.title}}            
-          <view slot="extra">    {{item.extra}}  </view>
+      <list-item thumb="../../../image/calendar.png" class="fsize14">
+        <view class="fsize14">开始时间</view>
+        <view slot="extra" class="fsize14">    {{schedule.beginTimeFormat}}  </view>
+      </list-item>
+      <list-item thumb="../../../image/calendar.png" class="fsize14">
+        <view class="fsize14">结束时间</view>
+        <view slot="extra" class="fsize14">    {{schedule.endTimeFormat}}  </view>
+      </list-item>
+    </list>
+  </view>
+  <view class="page-margin page-padding-bottom">
+    <list>
+      <view slot="header">拜访烟农列表</view>
+      <block a:for="{{schedule.growers}}">
+        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goVisit" >      {{item.growerName}}                           
+          <view class="am-list-brief">{{item.unitName}}</view>
+          <view slot="extra" class="fsize12">    已拜访{{item.completeNum}}次共{{item.visitNum}}次  </view>
         </list-item>
       </block>
     </list>

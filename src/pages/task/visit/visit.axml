@@ -1,0 +1,37 @@
+<view class="width100">
+  <card title="唐全华" subTitle="浇水（技术服务）" footer="已完成2次拜访共4次拜访" />
+  <view class="page-margin">
+    <list>
+      <view slot="header">烟农基本信息</view>
+      <list-item class="fsize14" wrap="{{true}}" >
+        <view class="fsize14">烟农单位</view>
+        <view slot="extra" class="fsize14">张家烟叶生产收购点</view>
+      </list-item>
+      <list-item class="fsize14">
+        <view class="fsize14">烟农地址</view>
+        <view slot="extra" class="fsize14">张家乡回龙村一社</view>
+      </list-item>
+      <list-item class="fsize14">
+        <view class="fsize14">联系电话</view>
+        <view slot="extra" class="fsize14">17723438090</view>
+      </list-item>
+      <list-item class="fsize14">
+        <view class="fsize14">种植面积</view>
+        <view slot="extra" class="fsize14">35.00（亩）</view>
+      </list-item>
+    </list>
+  </view>
+  <view class="page-margin page-padding-bottom">
+    <list>
+      <view slot="header">拜访记录（本任务还差2次）</view>
+      <block a:for="{{visits}}">
+        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" >      {{item.location}}                                               
+          <view slot="extra" class="fsize12">    {{item.creationTimeFormat}} </view>
+        </list-item>
+      </block>
+    </list>
+  </view>
+  <view class="page-margin page-padding-bottom">
+    <button type="primary">去拜访</button>
+  </view>
+</view>

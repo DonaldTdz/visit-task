@@ -57,7 +57,7 @@ Page({
   getScheduleTasks(){
     dd.showLoading();
     dd.httpRequest({
-      url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingScheduleTaskListAsycn',
+      url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingScheduleTaskListAsync',
       method: 'Get',
       data: {
         userId: this.data.userInfo.id,

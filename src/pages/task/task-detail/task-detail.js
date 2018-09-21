@@ -1,24 +1,41 @@
+let app = getApp();
 Page({
   data:{
     id:'',
-    items: [
-      {
-        thumb:'../../../image/datetime.png',
-        title: '开始时间',
-        extra:'2018-10-01'
-      },
-      {
-        thumb: '../../../image/datetime.png',
-        title: '结束时间',
-        extra: '2018-10-31'
-      }
-    ],
-
+    schedule: {},
   },
   onLoad(query) {
     this.setData({id: query.id});
+    this.getTaskDetail();
     // 页面加载
-    console.info(`task-detail Page onLoad with query: ${JSON.stringify(query)}`);
+    //console.info(`task-detail Page onLoad with query: ${JSON.stringify(query)}`);
+  },
+  getTaskDetail() {
+    dd.showLoading();
+    dd.httpRequest({
+      url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingTaskInfoAsync',
+      method: 'Get',
+      data: {
+        scheduleTaskId: this.data.id,
+      },
+      dataType: 'json',
+      success: (res) => {
+        //console.info(`schedule: ${JSON.stringify(res.data.result)}`);
+        this.setData({ schedule : res.data.result });
+      },
+      fail: function(res) {
+        dd.alert({ content: '获取任务详情异常' });
+      },
+      complete: function(res) {
+        dd.hideLoading();
+        //dd.alert({ content: 'complete' });
+      }
+    });
+  },
+  goVisit(data) {
+    dd.navigateTo({
+      url: "../visit/visit?id=" + this.data.schedule.growers[data.index].id,
+    });
   },
   onShareAppMessage() {
     // 返回自定义分享信息
