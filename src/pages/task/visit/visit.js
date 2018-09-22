@@ -40,6 +40,11 @@ Page({
       }
     });
   },
+  goVisit(){
+    dd.navigateTo({
+      url: "../go-visit/go-visit",
+    });
+  },
   onShareAppMessage() {
     // 返回自定义分享信息
     return {

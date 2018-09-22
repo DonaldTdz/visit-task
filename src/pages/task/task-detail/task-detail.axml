@@ -1,4 +1,4 @@
-<view class="width100">
+<view class="width100" a:if="schedule.taskTitle" >
   <card title="{{schedule.taskTitle}}" thumb="../../../image/icon-tasknor.png" subTitle="{{schedule.scheduleTitle}}" footer="{{schedule.statusDesc + '（剩余'+schedule.endDay+'天）'}}" footerImg="{{schedule.statusImg}}" arrow={{false}}  />
   <view class="page-section page-padding page-margin">进度(已完成{{schedule.completeNum}}次共{{schedule.visitTotal}}次)    
     <progress percent="{{schedule.percent}}" show-info/>

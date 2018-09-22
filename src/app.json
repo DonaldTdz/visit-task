@@ -3,11 +3,12 @@
     "pages/task/index",
     "pages/list/index",
     "pages/task/task-detail/task-detail",
-    "pages/task/visit/visit"
+    "pages/task/visit/visit",
+    "pages/task/go-visit/go-visit"
   ],
   "window": {
     "defaultTitle": "拜访任务",
-      "backgroundColor": "#F5F5F9"
+    "backgroundColor": "#F5F5F9"
   },
   "tabBar": {
     "textColor": "#404040",

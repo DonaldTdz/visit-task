@@ -42,6 +42,6 @@
     </list>
   </view>
   <view class="page-margin page-padding-bottom">
-    <button type="primary">去拜访</button>
+    <button type="primary" onTap="goVisit" >去拜访</button>
   </view>
 </view>
