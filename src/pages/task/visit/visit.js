@@ -42,7 +42,7 @@ Page({
   },
   goVisit(){
     dd.navigateTo({
-      url: "../go-visit/go-visit",
+      url: "../go-visit/go-visit?id=" + this.data.id,
     });
   },
   onShareAppMessage() {
