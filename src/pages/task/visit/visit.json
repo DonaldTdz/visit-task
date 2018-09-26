@@ -1,4 +1,5 @@
 {
+   "defaultTitle": "烟农详情",
    "usingComponents":{
     "card":"../../../mini-ddui/es/card/index",
      "list":"../../../mini-ddui/es/list/index",
