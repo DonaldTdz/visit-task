@@ -2,15 +2,7 @@ let app = getApp();
 Page({
   data: {
     id:'', 
-    vgDetail:{},
-    visits:[{
-      location:'东方希望天祥广场',
-      creationTimeFormat:'09-21 18:21'
-    }, 
-    {
-        location: '东方希望天祥广场 A座',
-        creationTimeFormat: '09-20 18:21'
-      }],
+    vgDetail:{}
   },
   onLoad(query) {
     this.setData({id: query.id });

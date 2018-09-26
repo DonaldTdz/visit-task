@@ -77,10 +77,10 @@ Page({
       success: res => {
         //console.log(res);
         const path = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
-        dd.alert({ content: `内容：${path}` });
-        //console.log(app.globalData.host + 'GYISMSFile/FilesPostsAsync');
-        /*dd.uploadFile({
-          url: that.host + 'GYISMSFile/FilesPostsAsync',
+        //dd.alert({ content: `内容：${path}` });
+        console.log(that.data.host + 'GYISMSFile/FilesPostsAsync');
+        dd.uploadFile({
+          url: that.data.host + 'GYISMSFile/FilesPostsAsync',
           fileType: 'image',
           fileName: 'file',
           filePath: path,
@@ -95,8 +95,8 @@ Page({
             dd.alert({ title: `上传失败：${JSON.stringify(res)}` });
             console.log(res);
           },
-        });*/
-        dd.uploadFile({
+        });
+        /*dd.uploadFile({
           url: 'http://httpbin.org/post',
           fileType: 'image',
           fileName: 'file',
@@ -109,7 +109,7 @@ Page({
             dd.alert({ title: `上传失败` });
             console.log(res);
           },
-        });
+        });*/
       },
       fail: () => {
         dd.showToast({
@@ -155,11 +155,11 @@ Page({
       dd.alert({ title: '请获取位置信息' });
       return;
     }
-    /*if (this.data.imgPath == '') {
+    if (this.data.imgPath == '') {
       dd.alert({ title: '请上传拍照' });
       return;
-    }*/
-    this.setData({ imgPath: '/visit/5bcc3232-7dba-476d-8355-fdd205d6f3cf.jpg'});
+    }
+    //this.setData({ imgPath: '/visit/5bcc3232-7dba-476d-8355-fdd205d6f3cf.jpg'});
    // console.info(this.data);
    // var bo = false;
     for (var i in this.data.examines) {
@@ -178,9 +178,8 @@ Page({
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/VisitRecord/SaveDingDingVisitRecordAsync',
       method: 'Post',
-      data: {
-        input: this.data,
-      },
+      headers: { 'Content-Type': 'application/json;charset=UTF-8'},
+      data: this.data,
       dataType: 'json',
       success: (res) => {
         //console.info(res.data.result);
@@ -196,6 +195,7 @@ Page({
       },
       fail: function(res) {
         dd.alert({ content: '提交数据异常' });
+        console.info(res);
       },
       complete: function(res) {
         dd.hideLoading();

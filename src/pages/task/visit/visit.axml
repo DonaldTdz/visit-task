@@ -41,7 +41,7 @@
       </block>
     </list>
   </view>
-  <view class="page-margin page-padding-bottom">
+  <view class="page-margin page-padding-bottom" a:if="{{vgDetail.scheduleStatus == 1 || vgDetail.scheduleStatus == 2}}">
     <button type="primary" onTap="goVisit" >去拜访</button>
   </view>
 </view>
