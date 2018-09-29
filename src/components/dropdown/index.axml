@@ -14,7 +14,7 @@
     </view>
     <scroll-view scroll-y="{{true}}" class="a-dropdown-contents">
       <block a:for={{listData}} a:for-item="list" a:for-index="parentIndex">
-        <view hidden="{{selectedNav !== parentIndex}}">
+        <view hidden="{{selectedNav !== parentIndex}}" a:if="{{list.type=='dropdown'}}">
           <view class="a-dropdown-list-items {{active? 'show' : ''}}">
             <block a:for={{list.data}} >
               <view class="a-dropdown-list-item {{index !== (list.data.length - 1) ? '': 'last'}} {{index === list.selectedItem ? 'selected': ''}}" hover-class="a-dropdown-list-item-hover" onTap="{{list.onListItemTap || '_onListItemTap'}}" catchTap="{{list.onListItemTap || '_catchListItemTap'}}" data-index={{index}} data-parentIndex={{parentIndex}} data-title={{item.title}}                            >

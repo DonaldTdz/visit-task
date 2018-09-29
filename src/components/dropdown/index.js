@@ -11,7 +11,7 @@ export default {
   _onNavButtonItemTap(e){
     const index = e.currentTarget.dataset.index;
 
-    if (this.onDropdownNavItemTap) {
+    if (this.onButtonNavItemTap) {
       this.onButtonNavItemTap(e, index);
     } else {
       console.warn('no onButtonNavItemTap method');

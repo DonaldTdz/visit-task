@@ -90,8 +90,8 @@ Page({
     dd.datePicker({
       format: 'yyyy-MM-dd',
       currentDate: index == 1 ? this.data.startDate : this.data.endDate,
-      startDate: this.data.startDate,
-      endDate: this.data.endDate,
+      startDate: index == 1 ? '' : this.data.startDate,
+      endDate: index == 1 ? this.data.endDate : '', 
       success: (res) => {
         alistData[index].nav = res.date;
         if (index == 1) {
@@ -109,6 +109,14 @@ Page({
         this.cleanData();
         this.getTaskList();
       },
+      fail: (res) => {
+        this.setData({
+          dropdownSelectData: {
+            ...this.data.dropdownSelectData,
+            active: false
+          }
+        })
+      }
     });
   },
   catchDropdownNavItemTap(e, parentIndex, index, title) {
@@ -140,10 +148,10 @@ Page({
       active: false
     });
   },
-  cleanData(){
+  cleanData() {
     this.setData({
-      items:[],
-      pageIndex:0
+      items: [],
+      pageIndex: 0
     });
   },
   getTaskList() {
@@ -163,15 +171,15 @@ Page({
       success: (res) => {
         //console.info(`schedule: ${JSON.stringify(res.data.result)}`);
         const datas = res.data.result;
-        if (datas.length < 15){
+        if (datas.length < 15) {
           this.setData({ pageIndex: -1 });
         } else {
           var pindex = that.data.pageIndex + 15;
           this.setData({ pageIndex: pindex });
         }
         var tempItems = that.data.items;
-        if (datas.length > 0){
-          for (var i in datas){
+        if (datas.length > 0) {
+          for (var i in datas) {
             tempItems.push(datas[i]);
           }
           this.setData({ items: tempItems });
