@@ -72,7 +72,7 @@ Page({
   chooseImage() {
     var that = this;
     dd.chooseImage({
-      sourceType: ['camera', 'album'],
+      sourceType: ['camera'],
       count: 1,
       success: res => {
         //console.log(res);
@@ -186,9 +186,10 @@ Page({
         var result = res.data.result;
         if (result.code == 0){
           dd.alert({ content: result.msg });
-          dd.navigateTo({
+          /*dd.redirectTo({
             url: "../visit/visit?id=" + that.data.scheduleDetailId,
-          });
+          });*/
+          dd.navigateBack();
         } else{
           dd.alert({ content: result.msg });
         }

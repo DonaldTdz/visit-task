@@ -10,6 +10,7 @@ Page({
     this.loginSys();
     // 页面加载
     console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
+    //dd.alert({ content: "onLoad" });
   },
   loginSys(){
     if (app.globalData.userInfo.id == '') {
@@ -84,7 +85,9 @@ Page({
     // 页面加载完成
   },
   onShow() {
+    //dd.alert({ content: "显示了"});
     // 页面显示
+    this.getScheduleTasks();
   },
   onHide() {
     // 页面隐藏

@@ -10,6 +10,11 @@ Page({
     // 页面加载
     //console.info(`task-detail Page onLoad with query: ${JSON.stringify(query)}`);
   },
+  onShow() {
+    //dd.alert({ content: "显示了"});
+    // 页面显示
+    this.getTaskDetail();
+  },
   getTaskDetail() {
     dd.showLoading();
     dd.httpRequest({

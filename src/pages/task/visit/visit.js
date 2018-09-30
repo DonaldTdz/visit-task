@@ -10,6 +10,11 @@ Page({
     // 页面加载
     console.info(`visit Page onLoad with query: ${JSON.stringify(query)}`);
   },
+  onShow() {
+    //dd.alert({ content: "显示了"});
+    // 页面显示
+    this.getVisitGrowerDetail();
+  },
   getVisitGrowerDetail(){
     dd.showLoading();
     dd.httpRequest({
