@@ -77,25 +77,45 @@ Page({
       success: res => {
         //console.log(res);
         const path = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
-        //dd.alert({ content: `内容：${path}` });
-        console.log(that.data.host + 'GYISMSFile/FilesPostsAsync');
-        dd.uploadFile({
-          url: that.data.host + 'GYISMSFile/FilesPostsAsync',
-          fileType: 'image',
-          fileName: 'file',
-          filePath: path,
+        dd.alert({ content: `内容：${path}` });
+        //console.log(that.data.host + 'GYISMSFile/FilesPostsAsync');
+        console.log(path)
+        var arrPath = [];
+        arrPath.push(path);
+        dd.compressImage({
+          filePaths: arrPath,
+          level: 0,
           success: (res) => {
-            //dd.alert({ title: `上传成功：${JSON.stringify(res)}` });
-            const data = JSON.parse(res.data);
-            that.setData({
-              imgPath: data.result
+            console.log('444444')
+            console.log(JSON.stringify(res))
+
+            var newpath = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
+
+            console.log('newpath:' + newpath)
+            dd.uploadFile({
+              url: that.data.host + 'GYISMSFile/FilesPostsAsync',
+              fileType: 'image',
+              fileName: 'file',
+              filePath: newpath,
+              success: (res) => {
+                //dd.alert({ title: `上传成功：${JSON.stringify(res)}` });
+                const data = JSON.parse(res.data);
+                that.setData({
+                  imgPath: data.result
+                });
+              },
+              fail: function(res) {
+                dd.alert({ title: `上传失败：${JSON.stringify(res)}` });
+                console.log(res);
+              },
             });
           },
           fail: function(res) {
-            dd.alert({ title: `上传失败：${JSON.stringify(res)}` });
+            dd.alert({ title: '压缩图片失败' });
             console.log(res);
           },
         });
+        
         /*dd.uploadFile({
           url: 'http://httpbin.org/post',
           fileType: 'image',
