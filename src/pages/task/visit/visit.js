@@ -6,7 +6,7 @@ Page({
   },
   onLoad(query) {
     this.setData({id: query.id });
-    this.getVisitGrowerDetail();
+    //this.getVisitGrowerDetail();
     // 页面加载
     console.info(`visit Page onLoad with query: ${JSON.stringify(query)}`);
   },

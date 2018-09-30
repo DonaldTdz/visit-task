@@ -6,7 +6,7 @@ Page({
   },
   onLoad(query) {
     this.setData({id: query.id});
-    this.getTaskDetail();
+    //this.getTaskDetail();
     // 页面加载
     //console.info(`task-detail Page onLoad with query: ${JSON.stringify(query)}`);
   },

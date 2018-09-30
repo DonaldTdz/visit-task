@@ -19,35 +19,35 @@ Page({
     this.setData({ host: app.globalData.host });
     this.getInitInfo();
     this.getLocation();
-   },
-   getInitInfo(){
-     dd.showLoading();
-     dd.httpRequest({
-       url: app.globalData.host + 'api/services/app/VisitRecord/GetCreateDingDingVisitRecordAsync',
-       method: 'Get',
-       data: {
-         scheduleDetailId: this.data.scheduleDetailId,
-       },
-       dataType: 'json',
-       success: (res) => {
-         //console.info(res.data.result);
-         //console.info(`visit record: ${JSON.stringify(res.data.result)}`);
-         const visit = res.data.result;
-         this.setData({ taskDesc: visit.taskDesc });
-         this.setData({ growerName: visit.growerName });
-         this.setData({ growerId: visit.growerId });
-         this.setData({ employeeId: visit.employeeId });
-         this.setData({ examines: visit.examines });
-       },
-       fail: function(res) {
-         dd.alert({ content: '初始化信息异常' });
-       },
-       complete: function(res) {
-         dd.hideLoading();
-         //dd.alert({ content: 'complete' });
-       }
-     });
-   },
+  },
+  getInitInfo() {
+    dd.showLoading();
+    dd.httpRequest({
+      url: app.globalData.host + 'api/services/app/VisitRecord/GetCreateDingDingVisitRecordAsync',
+      method: 'Get',
+      data: {
+        scheduleDetailId: this.data.scheduleDetailId,
+      },
+      dataType: 'json',
+      success: (res) => {
+        //console.info(res.data.result);
+        //console.info(`visit record: ${JSON.stringify(res.data.result)}`);
+        const visit = res.data.result;
+        this.setData({ taskDesc: visit.taskDesc });
+        this.setData({ growerName: visit.growerName });
+        this.setData({ growerId: visit.growerId });
+        this.setData({ employeeId: visit.employeeId });
+        this.setData({ examines: visit.examines });
+      },
+      fail: function(res) {
+        dd.alert({ content: '初始化信息异常' });
+      },
+      complete: function(res) {
+        dd.hideLoading();
+        //dd.alert({ content: 'complete' });
+      }
+    });
+  },
   bindTextAreaBlur: function(e) {
     //console.log('描述是：',e.detail.value)
     this.setData({ desc: e.detail.value });
@@ -130,13 +130,15 @@ Page({
   },
   getLocation() {
     var that = this;
-    dd.showLoading();
+    if (this.data.location != '') {
+      dd.showLoading();
+    }
     dd.getLocation({
       type: 2,
       success(res) {
         dd.hideLoading();
         console.log(res)
-        const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street:'');
+        const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street : '');
         that.setData({
           location: reslocation,
           longitude: res.longitude,
@@ -149,9 +151,9 @@ Page({
       },
     })
   },
-  saveVisit(){
+  saveVisit() {
     //验证
-    if (this.data.location == ''){
+    if (this.data.location == '') {
       dd.alert({ title: '请获取位置信息' });
       return;
     }
@@ -160,11 +162,11 @@ Page({
       return;
     }
     //this.setData({ imgPath: '/visit/5bcc3232-7dba-476d-8355-fdd205d6f3cf.jpg'});
-   // console.info(this.data);
-   // var bo = false;
+    // console.info(this.data);
+    // var bo = false;
     for (var i in this.data.examines) {
       //console.info(item);
-      if (this.data.examines[i].score == 0){
+      if (this.data.examines[i].score == 0) {
         //bo = true;
         dd.alert({ title: '请填写考核结果' });
         return;
@@ -174,23 +176,27 @@ Page({
       dd.alert({ title: '请填写考核' });
       return;
     }*/
+    //dd.alert({ content: JSON.stringify(this.data) });
+    var jsonData = JSON.stringify(this.data);
+    //dd.alert({ content: jsonData });
+    //return;
     var that = this;
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/VisitRecord/SaveDingDingVisitRecordAsync',
       method: 'Post',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8'},
-      data: this.data,
+      headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
+      data: jsonData,
       dataType: 'json',
       success: (res) => {
         //console.info(res.data.result);
         var result = res.data.result;
-        if (result.code == 0){
+        if (result.code == 0) {
           dd.alert({ content: result.msg });
           /*dd.redirectTo({
             url: "../visit/visit?id=" + that.data.scheduleDetailId,
           });*/
           dd.navigateBack();
-        } else{
+        } else {
           dd.alert({ content: result.msg });
         }
       },
