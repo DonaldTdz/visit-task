@@ -10,71 +10,74 @@ Page({
     this.loginSys();
     // 页面加载
     console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
+    //dd.alert({ content: "onLoad" });
   },
-  loginSys(){
+  loginSys() {
     if (app.globalData.userInfo.id == '') {
       dd.showLoading();
       //免登陆
       //dd.getAuthCode({
-        //success: (res) => {
-        //  console.log('My authCode', res.authCode);
-          dd.httpRequest({
-            url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
-            method: 'Get',
-            data: {
-              code: '',//res.authCode,
-            },
-            dataType: 'json',
-            success: (res) => {
-              //console.log('res', res);
-              app.globalData.userInfo = res.data.result;
-              //console.log('app user info', app.userInfo);
-              this.setData({ userInfo: app.globalData.userInfo });
+      //success: (res) => {
+      //  console.log('My authCode', res.authCode);
+      dd.httpRequest({
+        url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
+        method: 'Get',
+        data: {
+          code: '',//res.authCode,
+        },
+        dataType: 'json',
+        success: (res) => {
+          //console.log('res', res);
+          app.globalData.userInfo = res.data.result;
+          //console.log('app user info', app.userInfo);
+          this.setData({ userInfo: app.globalData.userInfo });
 
-              this.getScheduleTasks();
-              //this.userInfo = res.data.result;
-              //dd.alert({ content: 'success' });
-            },
-            fail: function(res) {
-              dd.alert({ content: '获取用户信息异常' });
-            },
-            complete: function(res) {
-              dd.hideLoading();
-              //dd.alert({ content: 'complete' });
-            }
-          });
-        //},
-        //fail: function(err) {
-        //  dd.alert({ content: '授权出错' });
-        //  dd.hideLoading();
-        //}
+          this.getScheduleTasks();
+          //this.userInfo = res.data.result;
+          //dd.alert({ content: 'success' });
+        },
+        fail: function(res) {
+          dd.alert({ content: '获取用户信息异常' });
+        },
+        complete: function(res) {
+          dd.hideLoading();
+          //dd.alert({ content: 'complete' });
+        }
+      });
+      //},
+      //fail: function(err) {
+      //  dd.alert({ content: '授权出错' });
+      //  dd.hideLoading();
+      //}
       //});
     } else {
       this.setData({ userInfo: app.globalData.userInfo });
       this.getScheduleTasks();
     }
   },
-  getScheduleTasks(){
-    //dd.showLoading();
-    dd.httpRequest({
-      url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingScheduleTaskListAsync',
-      method: 'Get',
-      data: {
-        userId: this.data.userInfo.id,
-      },
-      dataType: 'json',
-      success: (res) => {
-        this.setData({ items: res.data.result });
-      },
-      fail: function(res) {
-        dd.alert({ content: '获取任务异常' });
-      },
-      complete: function(res) {
-        dd.hideLoading();
-      }
-    });
+  getScheduleTasks() {
+    if (this.data.userInfo.id) {
+      //dd.showLoading();
+      dd.httpRequest({
+        url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingScheduleTaskListAsync',
+        method: 'Get',
+        data: {
+          userId: this.data.userInfo.id,
+        },
+        dataType: 'json',
+        success: (res) => {
+          this.setData({ items: res.data.result });
+        },
+        fail: function(res) {
+          dd.alert({ content: '获取任务异常' });
+        },
+        complete: function(res) {
+          dd.hideLoading();
+        }
+      });
+    }
   },
-  goDetalil(data){
+  goDetalil(data) {
     //console.info(`dd data: ${JSON.stringify(data)}`);
     dd.navigateTo({
       url: "./task-detail/task-detail?id=" + this.data.items[data.index].id,
@@ -84,7 +87,9 @@ Page({
     // 页面加载完成
   },
   onShow() {
+    //dd.alert({ content: "显示了"});
     // 页面显示
+    this.getScheduleTasks();
   },
   onHide() {
     // 页面隐藏

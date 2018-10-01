@@ -1,4 +1,5 @@
 {
+  "defaultTitle": "当前任务",
   "usingComponents":{
     "card":"../../mini-ddui/es/card/index",
      "list":"../../mini-ddui/es/list/index",

@@ -2,21 +2,18 @@ let app = getApp();
 Page({
   data: {
     id:'', 
-    vgDetail:{},
-    visits:[{
-      location:'东方希望天祥广场',
-      creationTimeFormat:'09-21 18:21'
-    }, 
-    {
-        location: '东方希望天祥广场 A座',
-        creationTimeFormat: '09-20 18:21'
-      }],
+    vgDetail:{}
   },
   onLoad(query) {
     this.setData({id: query.id });
-    this.getVisitGrowerDetail();
+    //this.getVisitGrowerDetail();
     // 页面加载
     console.info(`visit Page onLoad with query: ${JSON.stringify(query)}`);
+  },
+  onShow() {
+    //dd.alert({ content: "显示了"});
+    // 页面显示
+    this.getVisitGrowerDetail();
   },
   getVisitGrowerDetail(){
     dd.showLoading();
@@ -42,7 +39,7 @@ Page({
   },
   goVisit(){
     dd.navigateTo({
-      url: "../go-visit/go-visit",
+      url: "../go-visit/go-visit?id=" + this.data.id,
     });
   },
   onShareAppMessage() {
