@@ -79,19 +79,40 @@ Page({
         const path = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
         dd.alert({ content: `内容：${path}` });
         //console.log(that.data.host + 'GYISMSFile/FilesPostsAsync');
-        console.log(path)
+        dd.uploadFile({
+          url: that.data.host + 'GYISMSFile/FilesPostsAsync',
+          fileType: 'image',
+          fileName: 'file',
+          filePath: path,
+          success: (res) => {
+            //dd.alert({ title: `上传成功：${JSON.stringify(res)}` });
+            const data = JSON.parse(res.data);
+            that.setData({
+              imgPath: data.result
+            });
+          },
+          fail: function(res) {
+            dd.alert({ title: `上传失败：${JSON.stringify(res)}` });
+            console.log(res);
+          },
+        });
+
+        /*console.log(path)
         var arrPath = [];
         arrPath.push(path);
         dd.compressImage({
           filePaths: arrPath,
           level: 0,
           success: (res) => {
-            console.log('444444')
             console.log(JSON.stringify(res))
+
+            dd.alert({ title: JSON.stringify(res) });
 
             var newpath = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
 
             console.log('newpath:' + newpath)
+
+            dd.alert({ title: 'newpath:' + newpath });
             dd.uploadFile({
               url: that.data.host + 'GYISMSFile/FilesPostsAsync',
               fileType: 'image',
@@ -112,9 +133,10 @@ Page({
           },
           fail: function(res) {
             dd.alert({ title: '压缩图片失败' });
-            console.log(res);
+            dd.alert({ title: JSON.stringify(res) });
+            //console.log(res);
           },
-        });
+        });*/
         
         /*dd.uploadFile({
           url: 'http://httpbin.org/post',
@@ -140,11 +162,12 @@ Page({
   },
   previewImage() {
     var that = this;
+    console.log(that.data.imgPath);
     dd.previewImage({
       current: 0,
       urls: [
         //'http://hechuangdd.vaiwan.com/visit/3554c3ee-983c-4c79-90fd-0b4fb7db40e6.jpg'
-        that.data.imgPath
+        app.globalData.host + that.data.imgPath
       ],
     });
   },

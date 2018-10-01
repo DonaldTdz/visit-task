@@ -1,8 +1,8 @@
 App({
   globalData: {
     userInfo: { id: '', name: '', position: '', avatar: '' },
-    host: 'http://hechuangaa.vaiwan.com/',
-    //host: 'http://127.0.0.1:21021/',
+    //host: 'http://hechuangaa.vaiwan.com/',
+    host: 'http://127.0.0.1:21021/',
     corpId: ''
   },
   onLaunch(options) {

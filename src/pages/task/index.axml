@@ -4,7 +4,7 @@
   </view>
   <view hidden="{{items.length == 0}}" class="page-margin page-padding-bottom">
     <list>
-      <view slot="header">待执行拜访任务列表</view>
+      <view slot="header">待执行任务列表(0.1.6)</view>
       <block a:for="{{items}}">
         <list-item key="item-{{index}}" thumb="{{item.thumb}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goDetalil">               {{item.title}}          
           <view class="am-list-brief fsize12">截止时间：{{item.endTimeFormat}}</view>
