@@ -196,7 +196,7 @@ Page({
   },
   goVisit(data) {
     dd.navigateTo({
-      url: "../visit/visit?id=" + this.data.items[data.index].id,
+      url: "../task/visit/visit?id=" + this.data.items[data.index].id,
     });
   },
   onReachBottom() {

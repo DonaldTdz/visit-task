@@ -29,3 +29,8 @@ page {
   
 }
 
+.page-button-padding{
+ padding-bottom: 32rpx;
+ padding-top: 32rpx;
+}
+

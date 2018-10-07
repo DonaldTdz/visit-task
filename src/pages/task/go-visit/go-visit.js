@@ -77,7 +77,7 @@ Page({
       success: res => {
         //console.log(res);
         const path = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
-        dd.alert({ content: `内容：${path}` });
+        //dd.alert({ content: `内容：${path}` });
         //console.log(that.data.host + 'GYISMSFile/FilesPostsAsync');
         dd.uploadFile({
           url: that.data.host + 'GYISMSFile/FilesPostsAsync',

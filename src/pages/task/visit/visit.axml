@@ -35,13 +35,16 @@
         </list-item>
       </block>
       <block a:for="{{vgDetail.visitRecords}}">
-        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.location}}                                                                                       
+        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.location}}                                                                                                 
           <view slot="extra" class="fsize12">    {{item.creationTimeFormat}} </view>
         </list-item>
       </block>
     </list>
   </view>
-  <view class="page-margin page-padding-bottom" a:if="{{vgDetail.scheduleStatus == 1 || vgDetail.scheduleStatus == 2}}">
-    <button type="primary" onTap="goVisit" >去拜访</button>
+  <view class="page-margin" a:if="{{isGetPosition && (vgDetail.scheduleStatus == 1 || vgDetail.scheduleStatus == 2)}}">
+    <button type="primary" onTap="goVisit">去拜访</button>
+  </view>
+  <view class="page-margin" a:if="{{!isGetPosition}}">
+    <button type="primary" onTap="getPosition">采集烟农位置</button>
   </view>
 </view>

@@ -2,7 +2,10 @@ let app = getApp();
 Page({
   data: {
     id:'', 
-    vgDetail:{}
+    vgDetail:{},
+    isGetPosition: false,
+    longitude: 0,
+    latitude: 0
   },
   onLoad(query) {
     this.setData({id: query.id });
@@ -27,6 +30,9 @@ Page({
       success: (res) => {
         //console.info(`schedule: ${JSON.stringify(res.data.result)}`);
         this.setData({ vgDetail: res.data.result });
+        if (res.data.result.growerInfo.longitude && res.data.result.growerInfo.latitude){
+          this.setData({ isGetPosition: true, longitude: res.data.result.growerInfo.longitude, latitude: res.data.result.growerInfo.latitude });
+        }
       },
       fail: function(res) {
         dd.alert({ content: '获取烟农详情异常' });
@@ -40,6 +46,74 @@ Page({
   goVisit(){
     dd.navigateTo({
       url: "../go-visit/go-visit?id=" + this.data.id,
+    });
+  },
+  getPosition(){
+    var that = this;
+    dd.showLoading();
+    dd.getLocation({
+      type: 2,
+      success(res) {
+        dd.hideLoading();
+        console.log(res)
+        const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street : '');
+        /*const postjson = {
+          id: that.data.vgDetail.growerInfo.id,
+          longitude: res.longitude,
+          latitude: res.latitude
+        };*/
+        dd.confirm({
+          title: '当前地理位置为',
+          content: reslocation +'（注：只能采集一次）',
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          success({ confirm }) {
+            //console.log(`用户点击了 ${confirm ? '「确定」' : '「取消」'}`);
+            console.log(confirm);
+            if (confirm){
+              dd.showLoading();
+              dd.httpRequest({
+                url: app.globalData.host + 'api/services/app/Grower/SavePositionAsync?id=' + that.data.vgDetail.growerInfo.id + '&longitude=' + res.longitude + '&latitude=' + res.latitude,
+                method: 'Post',
+                headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
+                data: {},//JSON.stringify(postjson),
+                dataType: 'json',
+                success: (res) => {
+                  //console.info(res.data.result);
+                  var result = res.data.result;
+                  if (result.code == 0) {
+                    dd.alert({ content: result.msg });
+                    that.setData({ isGetPosition: true, longitude: res.longitude, latitude: res.latitude});
+                  } else {
+                    dd.alert({ content: result.msg });
+                  }
+                },
+                fail: function(res) {
+                  dd.alert({ content: '提交数据异常' });
+                  console.info(res);
+                },
+                complete: function(res) {
+                  dd.hideLoading();
+                  //dd.alert({ content: 'complete' });
+                }
+              });
+            }
+          },
+          fail() {
+            console.log('fail');
+            dd.hideLoading();
+          },
+          complete() {
+            console.log('complete');
+          },
+        });
+          //longitude: res.longitude,
+          //latitude: res.latitude
+      },
+      fail() {
+        dd.hideLoading();
+        dd.alert({ title: '定位失败' });
+      },
     });
   },
   onShareAppMessage() {
