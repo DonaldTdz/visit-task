@@ -35,3 +35,11 @@
   align-items: center;
   -webkit-align-items: center;
 }
+
+.container{
+  height:120px; 
+  text-align: center;
+  margin:6px 10px;
+  background: #fff;
+  border-radius: 4px;
+}

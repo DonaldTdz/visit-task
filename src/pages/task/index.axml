@@ -2,11 +2,14 @@
   <view>
     <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.position}}" arrow={{false}} />
   </view>
+  <view class="container">
+    <dd-charts canvasId="ddchart-task-bar" onDraw="onDraw"></dd-charts>
+  </view>
   <view hidden="{{items.length == 0}}" class="page-margin page-padding-bottom">
     <list>
-      <view slot="header">待执行任务列表(0.1.6)</view>
+      <view slot="header">待执行任务列表(0.1.7)</view>
       <block a:for="{{items}}">
-        <list-item key="item-{{index}}" thumb="{{item.thumb}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goDetalil">               {{item.title}}          
+        <list-item key="item-{{index}}" thumb="{{item.thumb}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goDetalil">               {{item.title}}                    
           <view class="am-list-brief fsize12">截止时间：{{item.endTimeFormat}}</view>
           <view slot="extra" class="fsize12">{{item.extra}}</view>
         </list-item>
