@@ -135,12 +135,12 @@ Page({
           var map = {};
           const chartDataNew = this.data.chartItems;
           chartDataNew.map(function(obj) {
-            map[obj.name] = obj.num + '（' + obj.percent * 100 + '%）';
+            map[obj.name] = obj.num + '（' + obj.percent + '%）';
           });
           ddChart.source(chartDataNew, {
             percent: {
               formatter: function formatter(val) {
-                return val * 100 + '%';
+                return val + '%';
               }
             }
           })

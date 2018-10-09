@@ -5,10 +5,11 @@ Page({
     vgDetail: {},
     isGetPosition: false,
     longitude: 0,
-    latitude: 0
+    latitude: 0,
+    host: ''
   },
   onLoad(query) {
-    this.setData({ id: query.id });
+    this.setData({ id: query.id, host: app.globalData.host });
     //this.getVisitGrowerDetail();
     // 页面加载
     console.info(`visit Page onLoad with query: ${JSON.stringify(query)}`);
