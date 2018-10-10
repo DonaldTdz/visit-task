@@ -35,10 +35,9 @@
         </list-item>
       </block>
       <block a:for="{{vgDetail.visitRecords}}">
-        <list-item thumb="{{host + item.imgPath}}" key="item-{{index}}" index="{{index}}" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.timeFormat}}             
+        <list-item thumb="{{host + item.imgPath}}" key="item-{{index}}" index="{{index}}" onClick="goDetail" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.timeFormat}}             
           <view class="am-list-brief fsize12">{{item.location}}</view>
-          <view class="am-list-brief fsize12">{{item.desc}}</view>
-          <view slot="extra" class="fsize12">查看地图</view>
+          <view slot="extra" class="fsize12">详细</view>
         </list-item>
       </block>
     </list>

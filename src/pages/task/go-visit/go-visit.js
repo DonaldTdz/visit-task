@@ -15,8 +15,7 @@ Page({
     scheduleDetailId: '',
   },
   onLoad(query) {
-    this.setData({ scheduleDetailId: query.id });
-    this.setData({ host: app.globalData.host });
+    this.setData({ scheduleDetailId: query.id, host: app.globalData.host });
     this.getInitInfo();
     this.getLocation();
   },
@@ -33,11 +32,7 @@ Page({
         //console.info(res.data.result);
         //console.info(`visit record: ${JSON.stringify(res.data.result)}`);
         const visit = res.data.result;
-        this.setData({ taskDesc: visit.taskDesc });
-        this.setData({ growerName: visit.growerName });
-        this.setData({ growerId: visit.growerId });
-        this.setData({ employeeId: visit.employeeId });
-        this.setData({ examines: visit.examines });
+        this.setData({ taskDesc: visit.taskDesc, growerName: visit.growerName, growerId: visit.growerId, employeeId: visit.employeeId, examines: visit.examines });
       },
       fail: function(res) {
         dd.alert({ content: '初始化信息异常' });

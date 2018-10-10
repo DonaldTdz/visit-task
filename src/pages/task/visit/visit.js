@@ -159,6 +159,11 @@ Page({
       },
     });
   },
+  goDetail(data){
+    dd.navigateTo({
+      url: "../visit-detail/visit-detail?id=" + this.data.vgDetail.visitRecords[data.index].id,
+    });
+  },
   onShareAppMessage() {
     // 返回自定义分享信息
     return {

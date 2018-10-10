@@ -4,7 +4,8 @@
     "pages/list/index",
     "pages/task/task-detail/task-detail",
     "pages/task/visit/visit",
-    "pages/task/go-visit/go-visit"
+    "pages/task/go-visit/go-visit",
+    "pages/task/visit-detail/visit-detail"
   ],
   "window": {
     "defaultTitle": "拜访任务",
