@@ -1,9 +1,10 @@
 App({
   globalData: {
     userInfo: { id: '', name: '', position: '', avatar: '' },
-    //host: 'http://hechuangaa.vaiwan.com/',
-    host: 'http://127.0.0.1:21021/',
-    corpId: ''
+    host: 'http://gyapi.intcov.com/',
+    //host: 'http://127.0.0.1:21021/',
+    corpId: '',
+    appId: 7
   },
   onLaunch(options) {
     // 第一次打开
