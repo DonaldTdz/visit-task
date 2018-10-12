@@ -34,6 +34,9 @@ Page({
         success: (res) => {
           //console.log('res', res);
           app.globalData.userInfo = res.data.result;
+          if (app.globalData.userInfo.avatar == ''){
+            app.globalData.userInfo.avatar = '../../image/logo.jpeg';
+          }
           //console.log('app user info', app.userInfo);
           this.setData({ userInfo: app.globalData.userInfo });
 
