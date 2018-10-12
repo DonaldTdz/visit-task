@@ -47,6 +47,9 @@ Page({
   goVisit() {
     //验证
     var that = this;
+    //dd.navigateTo({
+    //   url: "../go-visit/go-visit?id=" + that.data.id,
+    //}); return;
     dd.showLoading();
     dd.getLocation({
       success(res) {
@@ -112,7 +115,7 @@ Page({
           cancelButtonText: '取消',
           success({ confirm }) {
             //console.log(`用户点击了 ${confirm ? '「确定」' : '「取消」'}`);
-            console.log(confirm);
+            //console.log(confirm);
             if (confirm) {
               dd.showLoading();
               dd.httpRequest({
@@ -133,7 +136,7 @@ Page({
                 },
                 fail: function(res) {
                   dd.alert({ content: '提交数据异常' });
-                  console.info(res);
+                  //console.info(res);
                 },
                 complete: function(res) {
                   dd.hideLoading();

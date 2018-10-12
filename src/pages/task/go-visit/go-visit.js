@@ -16,11 +16,11 @@ Page({
   },
   onLoad(query) {
     this.setData({ scheduleDetailId: query.id, host: app.globalData.host });
+    dd.showLoading();
     this.getInitInfo();
     this.getLocation();
   },
   getInitInfo() {
-    dd.showLoading();
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/VisitRecord/GetCreateDingDingVisitRecordAsync',
       method: 'Get',
@@ -29,13 +29,15 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        //console.info(res.data.result);
+        console.info(res.data.result);
         //console.info(`visit record: ${JSON.stringify(res.data.result)}`);
         const visit = res.data.result;
         this.setData({ taskDesc: visit.taskDesc, growerName: visit.growerName, growerId: visit.growerId, employeeId: visit.employeeId, examines: visit.examines });
       },
       fail: function(res) {
-        dd.alert({ content: '初始化信息异常' });
+        //console.info(res);
+        dd.alert({ content: '初始化信息异常'});
+        dd.hideLoading();
       },
       complete: function(res) {
         dd.hideLoading();
@@ -88,7 +90,7 @@ Page({
           },
           fail: function(res) {
             dd.alert({ title: `上传失败：${JSON.stringify(res)}` });
-            console.log(res);
+            //console.log(res);
           },
         });
 
@@ -168,14 +170,14 @@ Page({
   },
   getLocation() {
     var that = this;
-    if (this.data.location != '') {
+    if (this.data.location) {
       dd.showLoading();
     }
     dd.getLocation({
       type: 2,
       success(res) {
         dd.hideLoading();
-        console.log(res)
+        //console.log(res)
         const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street : '');
         that.setData({
           location: reslocation,

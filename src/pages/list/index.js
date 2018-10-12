@@ -52,6 +52,9 @@ Page({
     },
   },
   onLoad(query) {
+
+  },
+  onShow() {
     this.cleanData();
     this.getTaskList();
   },
