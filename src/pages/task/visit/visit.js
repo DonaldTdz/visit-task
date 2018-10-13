@@ -36,7 +36,7 @@ Page({
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取烟农详情异常' });
+        dd.alert({ content: '获取烟农详情异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();
@@ -47,6 +47,13 @@ Page({
   goVisit() {
     //验证
     var that = this;
+    var date = new Date();
+    var beginTime = new Date(this.data.vgDetail.beginTimeFormat + ' 00:00:00');
+    console.info('data:' + date + ' beginTime:' + beginTime);
+    if (date < beginTime){
+      dd.alert({ content: '计划还未开始', buttonText: '确定' });
+      return;
+    }
     //dd.navigateTo({
     //   url: "../go-visit/go-visit?id=" + that.data.id,
     //}); return;
@@ -66,7 +73,8 @@ Page({
           data: {},//JSON.stringify(postjson),
           dataType: 'json',
           success: (res) => {
-            console.info(res.data.result);
+            //console.info(res.data.result);
+            dd.hideLoading();
             var result = res.data.result;
             if (result.code == 0) {
               //dd.alert({ content: result.msg });
@@ -74,12 +82,13 @@ Page({
                 url: "../go-visit/go-visit?id=" + that.data.id,
               });
             } else {
-              dd.alert({ content: result.msg });
+              dd.alert({ content: result.msg, buttonText: '确定' });
             }
           },
           fail: function(res) {
-            dd.alert({ content: '验证位置异常' });
-            console.info(res);
+            dd.alert({ content: '验证位置异常', buttonText : '确定' });
+            dd.hideLoading();
+            //console.info(res);
           },
           complete: function(res) {
             dd.hideLoading();
@@ -89,7 +98,7 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '定位失败' });
+        dd.alert({ title: '定位失败', buttonText: '确定'});
       },
     });
    
@@ -128,14 +137,14 @@ Page({
                   console.info(res2.data.result);
                   var result = res2.data.result;
                   if (result.code == 0) {
-                    dd.alert({ content: result.msg });
+                    dd.alert({ content: result.msg, buttonText: '确定'});
                     that.setData({ isGetPosition: true, longitude: result.data.lon, latitude: result.data.lat });
                   } else {
-                    dd.alert({ content: result.msg });
+                    dd.alert({ content: result.msg, buttonText: '确定' });
                   }
                 },
                 fail: function(res) {
-                  dd.alert({ content: '提交数据异常' });
+                  dd.alert({ content: '提交数据异常', buttonText: '确定' });
                   //console.info(res);
                 },
                 complete: function(res) {
@@ -158,7 +167,7 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '定位失败' });
+        dd.alert({ title: '定位失败', buttonText: '确定' });
       },
     });
   },

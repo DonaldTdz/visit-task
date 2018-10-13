@@ -189,7 +189,7 @@ Page({
         }
       },
       fail: function(res) {
-        dd.alert({ content: '获取任务列表异常' });
+        dd.alert({ content: '获取任务列表异常', buttonText: '确定' });
       },
       complete: function(res) {
         dd.hideLoading();

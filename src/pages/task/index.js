@@ -47,7 +47,7 @@ Page({
           //dd.alert({ content: 'success' });
         },
         fail: function(res) {
-          dd.alert({ content: '获取用户信息异常' });
+          dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
         },
         complete: function(res) {
           dd.hideLoading();
@@ -56,7 +56,7 @@ Page({
       });
       },
       fail: function(err) {
-        dd.alert({ content: '授权出错' });
+        dd.alert({ content: '授权出错', buttonText: '确定' });
         dd.hideLoading();
       }
     });
@@ -81,7 +81,7 @@ Page({
           this.setData({ items: res.data.result });
         },
         fail: function(res) {
-          dd.alert({ content: '获取任务异常' });
+          dd.alert({ content: '获取任务异常', buttonText: '确定' });
         },
         complete: function(res) {
           dd.hideLoading();
@@ -188,7 +188,7 @@ Page({
           this.data.chart = ddChart;
         },
         fail: function(res) {
-          dd.alert({ content: '获取数据异常' });
+          dd.alert({ content: '获取数据异常', buttonText: '确定' });
         },
         complete: function(res) {
           dd.hideLoading();

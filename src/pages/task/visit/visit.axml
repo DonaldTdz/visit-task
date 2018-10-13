@@ -5,7 +5,7 @@
       <view slot="header">拜访任务</view>
       <list-item wrap="{{true}}">
         <view>{{vgDetail.taskTitle}}</view>
-        <view class="am-list-brief">{{vgDetail.footer}}</view>
+        <view class="am-list-brief">{{'['+ vgDetail.beginTimeFormat + '到' + vgDetail.endTimeFormat + ']' +vgDetail.footer}}</view>
       </list-item>
     </list>
   </view>

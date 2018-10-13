@@ -29,14 +29,14 @@ Page({
       },
       dataType: 'json',
       success: (res) => {
-        console.info(res.data.result);
+        //console.info(res.data.result);
         //console.info(`visit record: ${JSON.stringify(res.data.result)}`);
         const visit = res.data.result;
         this.setData({ taskDesc: visit.taskDesc, growerName: visit.growerName, growerId: visit.growerId, employeeId: visit.employeeId, examines: visit.examines });
       },
       fail: function(res) {
         //console.info(res);
-        dd.alert({ content: '初始化信息异常'});
+        dd.alert({ content: '初始化信息异常', buttonText: '确定'});
         dd.hideLoading();
       },
       complete: function(res) {
@@ -89,7 +89,7 @@ Page({
             });
           },
           fail: function(res) {
-            dd.alert({ title: `上传失败：${JSON.stringify(res)}` });
+            dd.alert({ title: `上传失败：${JSON.stringify(res)}`, buttonText: '确定' });
             //console.log(res);
           },
         });
@@ -170,9 +170,9 @@ Page({
   },
   getLocation() {
     var that = this;
-    if (this.data.location) {
+    /*if (this.data.location) {
       dd.showLoading();
-    }
+    }*/
     dd.getLocation({
       type: 2,
       success(res) {
@@ -187,18 +187,18 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '定位失败' });
+        dd.alert({ title: '定位失败', buttonText: '确定'});
       },
     })
   },
   saveVisit() {
     //验证
     if (this.data.location == '') {
-      dd.alert({ title: '请获取位置信息' });
+      dd.alert({ title: '请获取位置信息', buttonText: '确定' });
       return;
     }
     if (this.data.imgPath == '') {
-      dd.alert({ title: '请上传拍照' });
+      dd.alert({ title: '请上传拍照', buttonText: '确定'});
       return;
     }
     //this.setData({ imgPath: '/visit/5bcc3232-7dba-476d-8355-fdd205d6f3cf.jpg'});
@@ -208,7 +208,7 @@ Page({
       //console.info(item);
       if (this.data.examines[i].score == 0) {
         //bo = true;
-        dd.alert({ title: '请填写考核结果' });
+        dd.alert({ title: '请填写考核结果', buttonText: '确定' });
         return;
       }
     }
@@ -231,17 +231,17 @@ Page({
         //console.info(res.data.result);
         var result = res.data.result;
         if (result.code == 0) {
-          dd.alert({ content: result.msg });
+          dd.alert({ content: result.msg, buttonText: '确定' });
           /*dd.redirectTo({
             url: "../visit/visit?id=" + that.data.scheduleDetailId,
           });*/
           dd.navigateBack();
         } else {
-          dd.alert({ content: result.msg });
+          dd.alert({ content: result.msg, buttonText: '确定' });
         }
       },
       fail: function(res) {
-        dd.alert({ content: '提交数据异常' });
+        dd.alert({ content: '提交数据异常', buttonText: '确定' });
         console.info(res);
       },
       complete: function(res) {

@@ -29,7 +29,7 @@ Page({
         this.setData({ schedule : res.data.result });
       },
       fail: function(res) {
-        dd.alert({ content: '获取任务详情异常' });
+        dd.alert({ content: '获取任务详情异常', buttonText: '确定'});
       },
       complete: function(res) {
         dd.hideLoading();
