@@ -5,7 +5,7 @@ Page({
     userInfo: { id: '', name: '', position: '', avatar: '' },
     items: [],
     chartItems: [{ name: '完成', num: 700, percent: 0.7, a: '1' },
-    { name: '进行中', num: 200, percent: 0.2, a: '1' },
+    { name: '待完成', num: 200, percent: 0.2, a: '1' },
     { name: '逾期', num: 100, percent: 0.1, a: '1' }],
     chart: null,
   },
@@ -32,6 +32,7 @@ Page({
         },
         dataType: 'json',
         success: (res) => {
+          dd.hideLoading();
           //console.log('res', res);
           app.globalData.userInfo = res.data.result;
           if (app.globalData.userInfo.avatar == ''){
@@ -47,6 +48,7 @@ Page({
           //dd.alert({ content: 'success' });
         },
         fail: function(res) {
+          dd.hideLoading();
           dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
         },
         complete: function(res) {
@@ -135,6 +137,7 @@ Page({
         },
         dataType: 'json',
         success: (res) => {
+          dd.hideLoading();
           this.setData({ chartItems: res.data.result });
           var map = {};
           const chartDataNew = this.data.chartItems;
@@ -163,7 +166,7 @@ Page({
             innerRadius: 0.85
           })
           ddChart.axis(false);
-          ddChart.interval().position('a*percent').color('name', ['#1890FF', '#13C2C2', '#FE5D4D']).adjust('stack').style({
+          ddChart.interval().position('a*percent').color('name', ['#1890FF', '#9AC2AB', '#FE5D4D']).adjust('stack').style({
             lineWidth: 0.5,
             stroke: '#fff',
             lineJoin: 'round',
@@ -188,6 +191,7 @@ Page({
           this.data.chart = ddChart;
         },
         fail: function(res) {
+          dd.hideLoading();
           dd.alert({ content: '获取数据异常', buttonText: '确定' });
         },
         complete: function(res) {

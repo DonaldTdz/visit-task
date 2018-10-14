@@ -68,6 +68,7 @@ Page({
   },
   chooseImage() {
     var that = this;
+    dd.showLoading();
     dd.chooseImage({
       sourceType: ['camera'],
       count: 1,
@@ -82,6 +83,7 @@ Page({
           fileName: 'file',
           filePath: path,
           success: (res) => {
+            dd.hideLoading();
             //dd.alert({ title: `上传成功：${JSON.stringify(res)}` });
             const data = JSON.parse(res.data);
             that.setData({
@@ -89,6 +91,7 @@ Page({
             });
           },
           fail: function(res) {
+            dd.hideLoading();
             dd.alert({ title: `上传失败：${JSON.stringify(res)}`, buttonText: '确定' });
             //console.log(res);
           },
@@ -151,6 +154,7 @@ Page({
         });*/
       },
       fail: () => {
+        dd.hideLoading();
         dd.showToast({
           content: '调用拍照异常', // 文字内容
         });
@@ -221,6 +225,7 @@ Page({
     //dd.alert({ content: jsonData });
     //return;
     var that = this;
+    dd.showLoading();
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/VisitRecord/SaveDingDingVisitRecordAsync',
       method: 'Post',
@@ -228,6 +233,7 @@ Page({
       data: jsonData,
       dataType: 'json',
       success: (res) => {
+        dd.hideLoading();
         //console.info(res.data.result);
         var result = res.data.result;
         if (result.code == 0) {
@@ -241,6 +247,7 @@ Page({
         }
       },
       fail: function(res) {
+        dd.hideLoading();
         dd.alert({ content: '提交数据异常', buttonText: '确定' });
         console.info(res);
       },

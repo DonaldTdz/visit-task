@@ -175,17 +175,17 @@ Page({
         //console.info(`schedule: ${JSON.stringify(res.data.result)}`);
         const datas = res.data.result;
         if (datas.length < 15) {
-          this.setData({ pageIndex: -1 });
+          that.setData({ pageIndex: -1 });
         } else {
           var pindex = that.data.pageIndex + 15;
-          this.setData({ pageIndex: pindex });
+          that.setData({ pageIndex: pindex });
         }
         var tempItems = that.data.items;
         if (datas.length > 0) {
           for (var i in datas) {
             tempItems.push(datas[i]);
           }
-          this.setData({ items: tempItems });
+          that.setData({ items: tempItems });
         }
       },
       fail: function(res) {
@@ -203,6 +203,7 @@ Page({
     });
   },
   onReachBottom() {
+    //dd.alert({ content: '底部 pageIndex：' + this.data.pageIndex});
     if (this.data.pageIndex != -1) {
       // 页面被拉到底部
       this.getTaskList();

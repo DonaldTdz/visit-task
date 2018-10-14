@@ -22,6 +22,7 @@ Page({
       method: 'Get',
       data: {
         scheduleTaskId: this.data.id,
+        uid: app.globalData.userInfo.id,
       },
       dataType: 'json',
       success: (res) => {
