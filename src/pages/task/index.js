@@ -48,6 +48,7 @@ Page({
           //dd.alert({ content: 'success' });
         },
         fail: function(res) {
+          //console.log('error res', JSON.stringify(res));
           dd.hideLoading();
           dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
         },
