@@ -1,0 +1,50 @@
+<view>
+  <view>
+    <list>
+      <list-item>      拜访对象                                                                                                                                                                       
+        <view slot="extra">{{growerName}}</view>
+      </list-item>
+      <list-item wrap="{{true}}" multipleLine="{{true}}">     拜访内容                                                                                                                                                     
+        <view class="am-list-brief fsize12">{{taskDesc}}</view>
+      </list-item>
+      <list-item wrap="{{true}}" class="location" multipleLine="{{true}}" arrow="{{true}}" onClick="getLocation" thumb="../../../image/location.png">{{location == ''? '点击获取所在位置':location}}</list-item>
+      <list-item wrap="{{true}}" multipleLine="{{true}}" last="{{true}}">拍照                                                                           
+        <view class="am-list-brief" onTap="previewImage" a:if="{{imgPath != ''}}">
+          <image src="{{host + imgPath}}" class="pimage" mode="scaleToFill" />
+        </view>
+        <view slot="extra" onTap="chooseImage">
+          <image src="../../../image/photo.png" class="photo" mode="scaleToFill" />
+        </view>
+      </list-item>
+    </list>
+  </view>
+  <view>
+    <view class="section">
+      <view class="section-header" a:if="{{examines.length != 0}}">考核列表</view>
+      <view a:for="{{examines}}" key="{{item}}">
+        <view class="section-title">{{index + 1}}. {{item.name+'（'+item.desc+'）'}}</view>
+        <radio-group class="radio-group" name="radio-examine-{{item.id}}" onChange="radioChange" data-value="{{item}}">
+          <label class="radio">
+            <radio value="{{index}}-5" checked="{{item.score == 5}}" />
+            <text class="radio-text">优</text>
+          </label>
+          <label class="radio">
+            <radio value="{{index}}-3" checked="{{item.score == 3}}" />
+            <text class="radio-text">良</text>
+          </label>
+          <label class="radio">
+            <radio value="{{index}}-1" checked="{{item.score == 1}}" />
+            <text class="radio-text">差</text>
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">备注</view>
+      <textarea onBlur="bindTextAreaBlur" auto-height placeholder="备注" name="desc" value="{{desc}}" maxlength="500" />
+    </view>
+    <view class="page-margin page-padding-bottom">
+      <button type="primary" onTap="saveVisit" >提交</button>
+    </view>
+  </view>
+</view>

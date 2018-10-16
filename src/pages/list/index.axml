@@ -1,0 +1,19 @@
+<import src="../../components/dropdown/index.axml" />
+<view>
+  <template is="DropdownSelect" data={{...dropdownSelectData}} />
+</view>
+<view hidden="{{items.length == 0}}" class="page-margin page-padding-bottom">
+  <list>
+    <view slot="header">任务列表</view>
+    <block a:for="{{items}}">
+      <list-item key="item-{{index}}" index="{{index}}" last="{{index === (items.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goVisit">{{item.title}}                    
+        <view class="am-list-brief fsize12">[{{item.growerName}}]截止时间：{{item.endTimeFormat}}</view>
+        <view slot="extra" class="fsize12">{{item.statusText}}</view>
+      </list-item>
+    </block>
+  </list>
+</view>
+<view class="item ddcenter page-margin page-padding" a:if="{{items.length == 0}}">
+  <image style="width: 80px; height:80px;" mode="aspectFit" src="../../image/nodata-search.png" />
+  <text style="color:gray; margin-top:10px;">没有数据</text>
+</view>

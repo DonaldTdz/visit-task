@@ -1,5 +1,36 @@
 page {
-  flex: 1;
-  display: flex;
-  background: #f7f7f7;
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
 }
+
+.page-section {
+  background: #fff;
+  margin-bottom: 32rpx;
+}
+
+.page-section-title {
+  padding: 16rpx 32rpx;
+}
+
+.page-padding{
+ padding: 32rpx;
+}
+
+.page-padding-bottom{
+ padding-bottom: 32rpx;
+}
+
+.page-margin{
+  background: #fff;
+  border-radius: 4px;
+  margin: 6px 10px;
+}
+.nodata{
+  text-align: center;
+  
+}
+
+.page-button-padding{
+ padding-bottom: 32rpx;
+ padding-top: 32rpx;
+}
+
