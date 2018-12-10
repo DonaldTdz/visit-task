@@ -178,13 +178,14 @@ Page({
       dd.showLoading();
     }*/
     dd.getLocation({
-      type: 2,
+      type: 1,
       success(res) {
         dd.hideLoading();
         //console.log(res)
-        const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street : '');
+        //dd.alert(res.address);
+        //const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street : '');
         that.setData({
-          location: reslocation,
+          location: res.address,
           longitude: res.longitude,
           latitude: res.latitude
         });

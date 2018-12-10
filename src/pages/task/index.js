@@ -15,6 +15,7 @@ Page({
     // 页面加载
     console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
     //dd.alert({ content: "onLoad" });
+    //this.getLocation();
   },
   loginSys() {
     if (app.globalData.userInfo.id == '') {
@@ -202,6 +203,22 @@ Page({
     } else {
       this.data.chart = ddChart;
     }
+  },
+  getLocation() {
+    dd.getLocation({
+      type: 1,
+      success(res) {
+        dd.alert({ title: 'res:'+JSON.stringify(res)});
+        //console.log(res)
+        dd.alert({ title: 'address:' + res.address});
+        const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street : '');
+        dd.alert({ title: 'reslocation:' + reslocation});
+      },
+      fail() {
+        dd.hideLoading();
+        dd.alert({ title: '定位失败', buttonText: '确定' });
+      },
+    })
   },
   onShareAppMessage() {
     // 返回自定义分享信息
