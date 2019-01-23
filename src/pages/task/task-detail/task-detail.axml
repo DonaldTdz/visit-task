@@ -1,29 +1,54 @@
-<view class="width100" a:if="schedule.taskTitle" >
-  <card title="{{schedule.taskTitle}}" thumb="../../../image/icon-tasknor.png" subTitle="{{schedule.scheduleTitle}}" footer="{{schedule.statusDesc + (schedule.endDay < 0? '（ 逾期'+schedule.endDay*-1+'天）' : '（ 剩余'+schedule.endDay+'天）') }}" footerImg="{{schedule.statusImg}}" arrow={{false}}  />
-  <view class="page-section page-padding page-margin">进度(已完成{{schedule.completeNum}}次共{{schedule.visitTotal}}次)    
-    <progress percent="{{schedule.percent}}" show-info/>
-  </view>
-  <view class="page-margin">
-    <list>
-      <list-item thumb="../../../image/calendar.png" class="fsize14">
-        <view class="fsize14">开始时间</view>
-        <view slot="extra" class="fsize14">    {{schedule.beginTimeFormat}}  </view>
-      </list-item>
-      <list-item thumb="../../../image/calendar.png" class="fsize14">
-        <view class="fsize14">结束时间</view>
-        <view slot="extra" class="fsize14">    {{schedule.endTimeFormat}}  </view>
-      </list-item>
-    </list>
-  </view>
-  <view class="page-margin page-padding-bottom">
-    <list>
-      <view slot="header">烟农列表（选择烟农去拜访）</view>
-      <block a:for="{{schedule.growers}}">
-        <list-item key="item-{{index}}" index="{{index}}" last="{{index === (schedule.growers.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goVisit" >      {{item.growerName}}                           
-          <view class="am-list-brief">{{item.unitName}}</view>
-          <view slot="extra" class="fsize12">    已拜访{{item.completeNum}}次共{{item.visitNum}}次  </view>
+<view class="width100" a:if="schedule.taskTitle">
+  <card title="{{schedule.taskTitle}}" thumb="../../../image/icon-tasknor.png" subTitle="{{schedule.scheduleTitle}}" footer="{{schedule.statusDesc + (schedule.endDay                             
+    < 0? '（ 逾期'+schedule.endDay*-1+'天）' : '（ 剩余'+schedule.endDay+'天）') }}" footerImg="{{schedule.statusImg}}" arrow={{false}}  />
+    <view class="page-section page-padding page-margin">进度(已完成{{schedule.completeNum}}次共{{schedule.visitTotal}}次)                                                  
+      <progress percent="{{schedule.percent}}" show-info/>
+    </view>
+    <view class="page-margin">
+      <list>
+        <list-item thumb="../../../image/calendar.png" class="fsize14">
+          <view class="fsize14">开始时间                                                                      
+          </view>
+          <view slot="extra" class="fsize14">    {{schedule.beginTimeFormat}}                                                                        
+          </view>
         </list-item>
-      </block>
-    </list>
-  </view>
-</view>
+        <list-item thumb="../../../image/calendar.png" class="fsize14">
+          <view class="fsize14">结束时间                                                                      
+          </view>
+          <view slot="extra" class="fsize14">    {{schedule.endTimeFormat}}                                                                        
+          </view>
+        </list-item>
+      </list>
+    </view>
+    <view class="page-margin page-padding-bottom">
+      <tabs tabs="{{tabs}}" onTabClick="handleTabClick" >
+        <block a:for="{{tabs}}">
+          <tab-content key="{{index}}">
+            <!-- 待完成 -->
+            <view >
+              <view class="item  page-margin " a:if="{{schedule.growers.length == 0}}">
+                <image style="width: 80px; height:80px;" mode="aspectFit" src="../../../images/nodata-search.png" />
+                <text style="color:gray; margin-top:10px;">{{nodataStr}}                                                                                       
+                </text>
+              </view>
+              <view a:if="{{schedule.growers.length>0}}">
+                <list>
+                  <view slot="header">烟农列表（选择烟农去拜访）                  
+                  </view>
+                  <block a:for="{{schedule.growers}}">
+                    <list-item key="item-{{index}}" index="{{index}}" last="{{index === (schedule.growers.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goVisit">      {{item.growerName}}                                                                                                                                                                       
+                      <view class="am-list-brief">{{item.unitName}}                                                                                                                                  
+                      </view>
+                      <view slot="extra" class="fsize12">    已拜访{{item.completeNum}}次共{{item.visitNum}}次                                                                                                                                    
+                      </view>
+                    </list-item>
+                  </block>
+                </list>
+              </view>
+            </view>
+          </tab-content>
+        </block>
+      </tabs>
+    </view>
+    </view>
+   

@@ -1,9 +1,9 @@
 App({
   globalData: {
     userInfo: { id: '', name: '', position: '', avatar: '' },
-    host: 'http://gyapi.intcov.com/',
+    // host: 'http://gyapi.intcov.com/',
     //host: 'http://127.0.0.1:21021/',
-    //host: 'http://hechuangdd.vaiwan.com/',
+    host: 'http://hechuangdd.vaiwan.com/',
     corpId: '',
     appId: 7
   },
