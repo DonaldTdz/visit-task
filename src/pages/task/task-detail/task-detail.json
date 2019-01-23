@@ -4,7 +4,7 @@
     "card": "../../../mini-ddui/es/card/index",
     "list": "../../../mini-ddui/es/list/index",
     "list-item": "../../../mini-ddui/es/list/list-item/index",
-    "tabs": "mini-ddui/es/tabs/index",
-    "tab-content": "mini-ddui/es/tabs/tab-content/index"
+    "tabs": "../../../mini-ddui/es/tabs/index",
+    "tab-content": "../../../mini-ddui/es/tabs/tab-content/index"
   }
 }
