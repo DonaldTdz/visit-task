@@ -61,7 +61,7 @@ Page({
   },
   handleTabClick({ index }) {
     this.data.status = index == 0 ? 3 : 2;
-    var str = index == 0 ? '没有需要拜访的烟农' : '没有已完成拜访的烟农';
+    var str = index == 0 ? '没有待完成数据' : '没有已完成数据';
     this.setData({ nodataStr: str });
     this.getTaskDetail();
   }
