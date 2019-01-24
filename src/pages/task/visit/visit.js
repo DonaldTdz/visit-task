@@ -6,7 +6,9 @@ Page({
     isGetPosition: false,
     longitude: 0,
     latitude: 0,
-    host: ''
+    host: '',
+    colNum: null,
+    showPosition: false
   },
   onLoad(query) {
     this.setData({ id: query.id, host: app.globalData.host });
@@ -34,11 +36,14 @@ Page({
         if (res.data.result.growerInfo.longitude && res.data.result.growerInfo.latitude) {
           this.setData({ isGetPosition: true, longitude: res.data.result.growerInfo.longitude, latitude: res.data.result.growerInfo.latitude });
         }
+        if (res.data.result.growerInfo.collectNum < 3) {
+          this.setData({ showPosition: true, colNum: 3 - res.data.result.growerInfo.collectNum });
+        }
       },
-      fail: function(res) {
+      fail: function (res) {
         dd.alert({ content: '获取烟农详情异常', buttonText: '确定' });
       },
-      complete: function(res) {
+      complete: function (res) {
         dd.hideLoading();
         //dd.alert({ content: 'complete' });
       }
@@ -50,7 +55,7 @@ Page({
     var date = new Date();
     var beginTime = new Date(this.data.vgDetail.beginTimeFormat + ' 00:00:00');
     console.info('data:' + date + ' beginTime:' + beginTime);
-    if (date < beginTime){
+    if (date < beginTime) {
       dd.alert({ content: '计划还未开始', buttonText: '确定' });
       return;
     }
@@ -66,7 +71,7 @@ Page({
           latitude: res.latitude
         };*/
         dd.httpRequest({
-          url: app.globalData.host + 'api/services/app/VisitRecord/ValidateLocationAsync?lat=' + res.latitude + '&lon=' + res.longitude 
+          url: app.globalData.host + 'api/services/app/VisitRecord/ValidateLocationAsync?lat=' + res.latitude + '&lon=' + res.longitude
             + '&latGrower=' + that.data.latitude + '&lonGrower=' + that.data.longitude,
           method: 'Post',
           headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
@@ -82,15 +87,29 @@ Page({
                 url: "../go-visit/go-visit?id=" + that.data.id,
               });
             } else {
-              dd.alert({ content: result.msg, buttonText: '确定' });
+              var butText = colNum > 3 ? '' : '重新定位'
+              dd.confirm({
+                content: reslocation + result.msg,
+                confirmButtonText: '重新定位',
+                cancelButtonText: '取消',
+                success({ confirm }) {
+                  console.log(confirm);
+                  if (colNum < 3) {
+                    this.getPosition();
+                  }else{
+
+                  }
+                }
+              })
+              // dd.alert({ content: result.msg, cancelText: '确定', buttonText: '重新定位' });
             }
           },
-          fail: function(res) {
-            dd.alert({ content: '验证位置异常', buttonText : '确定' });
+          fail: function (res) {
+            dd.alert({ content: '验证位置异常', buttonText: '确定' });
             dd.hideLoading();
             //console.info(res);
           },
-          complete: function(res) {
+          complete: function (res) {
             dd.hideLoading();
             //dd.alert({ content: 'complete' });
           }
@@ -98,10 +117,10 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '定位失败', buttonText: '确定'});
+        dd.alert({ title: '定位失败', buttonText: '确定' });
       },
     });
-   
+
   },
   getPosition() {
     var that = this;
@@ -119,16 +138,17 @@ Page({
         };*/
         dd.confirm({
           title: '当前地理位置为',
-          content: reslocation + '（注：只能采集一次）',
+          content: reslocation + '（注：最多能采集3次）',
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           success({ confirm }) {
             //console.log(`用户点击了 ${confirm ? '「确定」' : '「取消」'}`);
-            //console.log(confirm);
+            console.log(confirm);
             if (confirm) {
               dd.showLoading();
               dd.httpRequest({
-                url: app.globalData.host + 'api/services/app/Grower/SavePositionAsync?id=' + that.data.vgDetail.growerInfo.id + '&longitude=' + res.longitude + '&latitude=' + res.latitude,
+                url: app.globalData.host + 'api/services/app/Grower/SavePositionAsync?id=' + that.data.vgDetail.growerInfo.id + '&longitude=' + res.longitude + '&latitude=' + res.latitude
+                  + '&userId=' + app.globalData.userInfo.id,
                 method: 'Post',
                 headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
                 data: {},//JSON.stringify(postjson),
@@ -137,17 +157,18 @@ Page({
                   console.info(res2.data.result);
                   var result = res2.data.result;
                   if (result.code == 0) {
-                    dd.alert({ content: result.msg, buttonText: '确定'});
+                    dd.alert({ content: result.msg, buttonText: '确定' });
                     that.setData({ isGetPosition: true, longitude: result.data.lon, latitude: result.data.lat });
+                    that.setData({ showPosition: result.data.colNum < 3 ? true : false, colNum: 3 - colNum })
                   } else {
                     dd.alert({ content: result.msg, buttonText: '确定' });
                   }
                 },
-                fail: function(res) {
+                fail: function (res) {
                   dd.alert({ content: '提交数据异常', buttonText: '确定' });
                   //console.info(res);
                 },
-                complete: function(res) {
+                complete: function (res) {
                   dd.hideLoading();
                   //dd.alert({ content: 'complete' });
                 }
@@ -171,7 +192,7 @@ Page({
       },
     });
   },
-  goDetail(data){
+  goDetail(data) {
     dd.navigateTo({
       url: "../visit-detail/visit-detail?id=" + this.data.vgDetail.visitRecords[data.index].id,
     });
