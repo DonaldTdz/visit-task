@@ -46,6 +46,6 @@
     <button type="primary" onTap="goVisit">去拜访</button>
   </view>
   <view class="page-margin" a:if="{{showPosition}}">
-    <button type="default" onTap="getPosition">采集烟农位置(剩余{{colNum}}次)</button>
+    <button type="default" onTap="getPosition">采集烟农位置{{lastNum==0?'':'(剩余'+lastNum+'次)'}}</button>
   </view>
 </view>

@@ -7,8 +7,9 @@ Page({
     longitude: 0,
     latitude: 0,
     host: '',
-    colNum: null,
-    showPosition: false
+    lastNum: null,
+    showPosition: false,
+    limitNum: 0,
   },
   onLoad(query) {
     this.setData({ id: query.id, host: app.globalData.host });
@@ -32,13 +33,15 @@ Page({
       dataType: 'json',
       success: (res) => {
         //console.info(`schedule: ${JSON.stringify(res.data.result)}`);
-        this.setData({ vgDetail: res.data.result });
+        var num = res.data.result.growerInfo.limitNum - res.data.result.growerInfo.collectNum >= 0 ? res.data.result.growerInfo.limitNum - res.data.result.growerInfo.collectNum : 0;
+        this.setData({ vgDetail: res.data.result, limitNum: res.data.result.growerInfo.limitNum, lastNum: num });
         if (res.data.result.growerInfo.longitude && res.data.result.growerInfo.latitude) {
           this.setData({ isGetPosition: true, longitude: res.data.result.growerInfo.longitude, latitude: res.data.result.growerInfo.latitude });
+        };
+        if (res.data.result.growerInfo.collectNum < res.data.result.growerInfo.limitNum || !res.data.result.growerInfo.longitude || !res.data.result.growerInfo.latitude) {
+          this.setData({ showPosition: true });
         }
-        if (res.data.result.growerInfo.collectNum < 3) {
-          this.setData({ showPosition: true, colNum: 3 - res.data.result.growerInfo.collectNum });
-        }
+
       },
       fail: function (res) {
         dd.alert({ content: '获取烟农详情异常', buttonText: '确定' });
@@ -87,21 +90,29 @@ Page({
                 url: "../go-visit/go-visit?id=" + that.data.id,
               });
             } else {
-              var butText = colNum > 3 ? '' : '重新定位'
+              var butText = that.data.lastNum == 0 ? '' : '重新定位';
+              console.log(that.data.lastNum)
               dd.confirm({
-                content: reslocation + result.msg,
-                confirmButtonText: '重新定位',
+                // title: '当前地理位置为',
+                content: result.msg,
+                confirmButtonText: butText,
                 cancelButtonText: '取消',
                 success({ confirm }) {
-                  console.log(confirm);
-                  if (colNum < 3) {
-                    this.getPosition();
-                  }else{
-
+                  //console.log(`用户点击了 ${confirm ? '「确定」' : '「取消」'}`);
+                  if (confirm) {
+                    if (that.data.lastNum > 0) {
+                      that.getPosition();
+                    } else {
+                      //书写申请代码
+                    }
                   }
-                }
-              })
-              // dd.alert({ content: result.msg, cancelText: '确定', buttonText: '重新定位' });
+                },
+                fail() {
+                  dd.hideLoading();
+                },
+                complete() {
+                },
+              });
             }
           },
           fail: function (res) {
@@ -138,7 +149,7 @@ Page({
         };*/
         dd.confirm({
           title: '当前地理位置为',
-          content: reslocation + '（注：最多能采集3次）',
+          content: reslocation + '（注：每年最多能采集' + that.data.limitNum + '次）',
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           success({ confirm }) {
@@ -158,8 +169,14 @@ Page({
                   var result = res2.data.result;
                   if (result.code == 0) {
                     dd.alert({ content: result.msg, buttonText: '确定' });
-                    that.setData({ isGetPosition: true, longitude: result.data.lon, latitude: result.data.lat });
-                    that.setData({ showPosition: result.data.colNum < 3 ? true : false, colNum: 3 - colNum })
+                    that.setData(
+                      {
+                        isGetPosition: true,
+                        longitude: result.data.lon,
+                        latitude: result.data.lat,
+                        showPosition: result.data.colNum < that.data.limitNum ? true : false,
+                        lastNum: that.data.limitNum - result.data.colNum > 0 ? that.data.limitNum - result.data.colNum : 0
+                      });
                   } else {
                     dd.alert({ content: result.msg, buttonText: '确定' });
                   }
