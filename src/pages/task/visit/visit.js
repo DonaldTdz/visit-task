@@ -90,10 +90,9 @@ Page({
                 url: "../go-visit/go-visit?id=" + that.data.id,
               });
             } else {
-              var butText = that.data.lastNum == 0 ? '' : '重新定位';
-              console.log(that.data.lastNum)
+              var butText = that.data.lastNum == 0 ? '确定' : '重新定位';
               dd.confirm({
-                // title: '当前地理位置为',
+                title: '确认',
                 content: result.msg,
                 confirmButtonText: butText,
                 cancelButtonText: '取消',

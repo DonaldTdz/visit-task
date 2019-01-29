@@ -8,7 +8,7 @@ Page({
       { title: '已完成' },
     ],
     tabIndex: 1,
-    status: null,
+    status: 3,
     nodataStr: '没有需要拜访的烟农',
   },
   onLoad(query) {
@@ -23,6 +23,7 @@ Page({
     this.getTaskDetail();
   },
   getTaskDetail() {
+    console.log(this.data.status)
     dd.showLoading();
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/ScheduleTask/GetDingDingTaskInfoAsync',
