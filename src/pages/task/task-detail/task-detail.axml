@@ -26,16 +26,16 @@
           <tab-content key="{{index}}">
             <!-- 待完成 -->
             <view >
-              <view class="item  page-margin " a:if="{{schedule.growers.length == 0}}">
+              <view class="item  page-margin " a:if="{{growers.length == 0}}">
                 <image style="width: 80px; height:80px;" mode="aspectFit" src="../../../images/nodata-search.png" />
                 <text style="color:gray; margin-top:10px;">{{nodataStr}}                                                                                       
                 </text>
               </view>
-              <view a:if="{{schedule.growers.length>0}}">
+              <view a:if="{{growers.length>0}}">
                 <list>
                   <view slot="header">烟农列表（选择烟农去拜访）                  
                   </view>
-                  <block a:for="{{schedule.growers}}">
+                  <block a:for="{{growers}}">
                     <list-item key="item-{{index}}" index="{{index}}" last="{{index === (schedule.growers.length - 1)}}" arrow="{{true}}" wrap="{{true}}" onClick="goVisit">      {{item.growerName}}                                                                                                                                                                       
                       <view class="am-list-brief">{{item.unitName}}                                                                                                                                  
                       </view>

@@ -50,6 +50,7 @@ Page({
         },
         fail: function(res) {
           console.log('error res', JSON.stringify(res));
+          //dd.alert({ content: 'error:'+JSON.stringify(res), buttonText: '确定' });
           dd.hideLoading();
           dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
         },

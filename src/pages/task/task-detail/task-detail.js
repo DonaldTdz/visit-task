@@ -3,6 +3,7 @@ Page({
   data: {
     id: '',
     schedule: {},
+    growers: [],
     tabs: [
       { title: '待完成' },
       { title: '已完成' },
@@ -36,7 +37,14 @@ Page({
       dataType: 'json',
       success: (res) => {
         //console.info(`schedule: ${JSON.stringify(res.data.result)}`);
-        this.setData({ schedule: res.data.result });
+        const gdata = res.data.result;
+        this.setData({ schedule: gdata });
+        //console.info("status:" + this.data.status);
+        if(this.data.status == 3){
+          this.setData({ growers: gdata.unCompleteGrowers });
+        } else {
+          this.setData({ growers: gdata.completeGrowers });
+        }
       },
       fail: function (res) {
         dd.alert({ content: '获取任务详情异常', buttonText: '确定' });
@@ -64,6 +72,11 @@ Page({
     this.data.status = index == 0 ? 3 : 2;
     var str = index == 0 ? '没有待完成数据' : '没有已完成数据';
     this.setData({ nodataStr: str });
-    this.getTaskDetail();
+    //this.getTaskDetail();
+     if(this.data.status == 3){
+          this.setData({ growers: this.data.schedule.unCompleteGrowers });
+        } else {
+          this.setData({ growers: this.data.schedule.completeGrowers });
+        }
   }
 });
