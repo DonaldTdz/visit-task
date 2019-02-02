@@ -57,7 +57,7 @@ Page({
   },
   goVisit(data) {
     dd.navigateTo({
-      url: "../visit/visit?id=" + this.data.schedule.growers[data.index].id,
+      url: "../visit/visit?id=" + this.data.growers[data.index].id,
     });
   },
   onShareAppMessage() {
