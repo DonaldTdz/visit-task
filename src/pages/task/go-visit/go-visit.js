@@ -7,6 +7,7 @@ Page({
     growerId: 0,
     growerName: '',
     imgPath: '',
+    imgPaths: [],
     location: '',
     latitude: 0.0,
     longitude: '',
@@ -66,8 +67,31 @@ Page({
     }
     //console.log('数组：', this.data.examines);
   },
+  getImgPaths(imgs, type){
+    if(type == 1) {
+      let imgstrs = '';
+      for(var i in imgs){
+        imgstrs += imgs[i];
+        if(i != imgs.length - 1){
+          imgstrs += ',';
+        }
+      }
+      return imgstrs;
+    } else {
+      let imgarr = [];
+      for(var i in imgs){
+        imgarr.push(app.globalData.host + imgs[i]);
+      }
+      return imgarr;
+    }
+  },
   chooseImage() {
     var that = this;
+    const imgpaths = that.data.imgPaths;
+    if(imgpaths.length >= 3){
+        dd.alert({ title: `亲`, content: `采集照片已经超过3张`, buttonText: '确定' });
+        return;
+    } 
     dd.showLoading();
     dd.chooseImage({
       sourceType: ['camera'],
@@ -86,9 +110,16 @@ Page({
             dd.hideLoading();
             //dd.alert({ title: `上传成功：${JSON.stringify(res)}` });
             const data = JSON.parse(res.data);
+            const imgpaths = that.data.imgPaths;
+            //dd.alert({ title: `imgpaths${imgpaths}` });
+            imgpaths.push(data.result);
             that.setData({
-              imgPath: data.result
+              imgPaths: imgpaths
             });
+            //dd.alert({ title: `that.data.imgPaths${that.data.imgPaths}` });
+            //that.setData({
+            //  imgPath: data.result
+            //});
           },
           fail: function(res) {
             dd.hideLoading();
@@ -96,62 +127,6 @@ Page({
             //console.log(res);
           },
         });
-
-        /*console.log(path)
-        var arrPath = [];
-        arrPath.push(path);
-        dd.compressImage({
-          filePaths: arrPath,
-          level: 0,
-          success: (res) => {
-            console.log(JSON.stringify(res))
-
-            dd.alert({ title: JSON.stringify(res) });
-
-            var newpath = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
-
-            console.log('newpath:' + newpath)
-
-            dd.alert({ title: 'newpath:' + newpath });
-            dd.uploadFile({
-              url: that.data.host + 'GYISMSFile/FilesPostsAsync',
-              fileType: 'image',
-              fileName: 'file',
-              filePath: newpath,
-              success: (res) => {
-                //dd.alert({ title: `上传成功：${JSON.stringify(res)}` });
-                const data = JSON.parse(res.data);
-                that.setData({
-                  imgPath: data.result
-                });
-              },
-              fail: function(res) {
-                dd.alert({ title: `上传失败：${JSON.stringify(res)}` });
-                console.log(res);
-              },
-            });
-          },
-          fail: function(res) {
-            dd.alert({ title: '压缩图片失败' });
-            dd.alert({ title: JSON.stringify(res) });
-            //console.log(res);
-          },
-        });*/
-        
-        /*dd.uploadFile({
-          url: 'http://httpbin.org/post',
-          fileType: 'image',
-          fileName: 'file',
-          filePath: path,
-          success: res => {
-            dd.alert({ title: `上传成功` });
-            console.log(res);
-          },
-          fail: function(res) {
-            dd.alert({ title: `上传失败` });
-            console.log(res);
-          },
-        });*/
       },
       fail: () => {
         dd.hideLoading();
@@ -163,13 +138,11 @@ Page({
   },
   previewImage() {
     var that = this;
-    console.log(that.data.imgPath);
+    //console.log(that.data.imgPath);
+    const imgurls = that.getImgPaths(that.data.imgPaths, 2)
     dd.previewImage({
       current: 0,
-      urls: [
-        //'http://hechuangdd.vaiwan.com/visit/3554c3ee-983c-4c79-90fd-0b4fb7db40e6.jpg'
-        app.globalData.host + that.data.imgPath
-      ],
+      urls: imgurls,
     });
   },
   getLocation() {
@@ -202,13 +175,12 @@ Page({
       dd.alert({ title: '请获取位置信息', buttonText: '确定' });
       return;
     }
-    if (this.data.imgPath == '') {
+    const imgstrs = this.getImgPaths(this.data.imgPaths, 1);
+    if (imgstrs == '') {
       dd.alert({ title: '请上传拍照', buttonText: '确定'});
       return;
     }
-    //this.setData({ imgPath: '/visit/5bcc3232-7dba-476d-8355-fdd205d6f3cf.jpg'});
-    // console.info(this.data);
-    // var bo = false;
+    this.data.imgPath = imgstrs;
     for (var i in this.data.examines) {
       //console.info(item);
       if (this.data.examines[i].score == 0) {

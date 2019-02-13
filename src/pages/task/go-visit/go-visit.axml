@@ -1,72 +1,76 @@
 <view>
   <view>
     <list>
-      <list-item>      拜访对象                                                                                                                                                                               
-        <view slot="extra">{{growerName}}
+      <list-item>      拜访对象                                                                                                                                                                                       
+        <view slot="extra">{{growerName}}        
         </view>
       </list-item>
-      <list-item wrap="{{true}}" multipleLine="{{true}}">     拜访内容                                                                                                                                                             
-        <view class="am-list-brief fsize12">{{taskDesc}}
+      <list-item wrap="{{true}}" multipleLine="{{true}}">     拜访内容                                                                                                                                                                     
+        <view class="am-list-brief fsize12">{{taskDesc}}        
         </view>
       </list-item>
-      <list-item wrap="{{true}}" class="location" multipleLine="{{true}}" arrow="{{true}}" onClick="getLocation" thumb="../../../image/location.png">{{location == ''? '点击获取所在位置':location}}
+      <list-item wrap="{{true}}" class="location" multipleLine="{{true}}" arrow="{{true}}" onClick="getLocation" thumb="../../../image/location.png">{{location == ''? '点击获取所在位置':location}}      
       </list-item>
-      <list-item wrap="{{true}}" multipleLine="{{true}}" last="{{true}}">拍照                                                                                   
-        <view class="am-list-brief" onTap="previewImage" a:if="{{imgPath != ''}}">
-          <image src="{{host + imgPath}}" class="pimage" mode="scaleToFill" />
+      <list-item wrap="{{true}}" multipleLine="{{true}}" last="{{true}}">拍照                                                                                           
+        <view class="am-list-brief" onTap="previewImage" a:if="{{imgPaths.length > 0}}">
+          <block a:for="{{imgPaths}}">
+            <image index="{{index}}" src="{{host + item}}" class="pimage" mode="scaleToFill" />
+          </block>
         </view>
         <view slot="extra" onTap="chooseImage">
           <image src="../../../image/photo.png" class="photo" mode="scaleToFill" />
+        </view>
+        <view class="am-list-brief fsize12">最多可采集3张照片        
         </view>
       </list-item>
     </list>
   </view>
   <view>
     <view class="section">
-      <view class="section-header" a:if="{{examines.length != 0}}">考核列表
+      <view class="section-header" a:if="{{examines.length != 0}}">考核列表      
       </view>
       <view a:for="{{examines}}" key="{{item}}">
-        <view class="section-title">{{index + 1}}. {{item.name+'（'+item.desc+'）'}}
+        <view class="section-title">{{index + 1}}. {{item.name+'（'+item.desc+'）'}}        
         </view>
         <radio-group class="radio-group" name="radio-examine-{{item.id}}" onChange="radioChange" data-value="{{item}}">
           <block a:if="{{item.examineOption == 1}}">
             <label class="radio">
               <radio value="{{index}}-5" checked="{{item.score == 5}}" />
-              <text class="radio-text">优
+              <text class="radio-text">优              
               </text>
             </label>
             <label class="radio">
               <radio value="{{index}}-3" checked="{{item.score == 3}}" />
-              <text class="radio-text">合格
+              <text class="radio-text">合格              
               </text>
             </label>
             <label class="radio">
               <radio value="{{index}}-1" checked="{{item.score == 1}}" />
-              <text class="radio-text">差
+              <text class="radio-text">差              
               </text>
             </label>
           </block>
           <block a:if="{{item.examineOption == 2}}">
             <label class="radio">
               <radio value="{{index}}-5" checked="{{item.score == 5}}" />
-              <text class="radio-text">到位
+              <text class="radio-text">到位              
               </text>
             </label>
             <label class="radio">
               <radio value="{{index}}-1" checked="{{item.score == 3}}" />
-              <text class="radio-text">不到位
+              <text class="radio-text">不到位              
               </text>
             </label>
           </block>
           <block a:if="{{item.examineOption == 3}}">
             <label class="radio">
               <radio value="{{index}}-5" checked="{{item.score == 5}}" />
-              <text class="radio-text">了解
+              <text class="radio-text">了解              
               </text>
             </label>
             <label class="radio">
               <radio value="{{index}}-1" checked="{{item.score == 3}}" />
-              <text class="radio-text">不了解
+              <text class="radio-text">不了解              
               </text>
             </label>
           </block>
@@ -74,12 +78,12 @@
       </view>
     </view>
     <view class="section">
-      <view class="section-title">备注
+      <view class="section-title">备注      
       </view>
       <textarea onBlur="bindTextAreaBlur" auto-height placeholder="备注" name="desc" value="{{desc}}" maxlength="500" />
     </view>
     <view class="page-margin page-padding-bottom">
-      <button type="primary" onTap="saveVisit">提交
+      <button type="primary" onTap="saveVisit">提交      
       </button>
     </view>
   </view>
