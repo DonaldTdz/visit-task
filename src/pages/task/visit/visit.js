@@ -43,21 +43,38 @@ Page({
         }
 
       },
-      fail: function (res) {
+      fail: function(res) {
         dd.alert({ content: '获取烟农详情异常', buttonText: '确定' });
       },
-      complete: function (res) {
+      complete: function(res) {
         dd.hideLoading();
         //dd.alert({ content: 'complete' });
       }
     });
+  },
+  goArea() {//面积落实
+    var that = this;
+    var date = new Date();
+    var beginTime = new Date(this.data.vgDetail.beginTimeFormat + ' 00:00:00');
+    //console.info('data:' + date + ' beginTime:' + beginTime);
+    if (date < beginTime) {
+      dd.alert({ content: '计划还未开始', buttonText: '确定' });
+      return;
+    }
+    console.log("this.data.vgDetail.taskType:" + this.data.vgDetail.taskType);
+    if (this.data.vgDetail.taskType == 5) {//如果是面积落实
+      dd.navigateTo({
+        url: "../area/area?id=" + that.data.id + "&name="+that.data.vgDetail.growerInfo.name,
+      });
+      return;
+    }
   },
   goVisit() {
     //验证
     var that = this;
     var date = new Date();
     var beginTime = new Date(this.data.vgDetail.beginTimeFormat + ' 00:00:00');
-    console.info('data:' + date + ' beginTime:' + beginTime);
+    //console.info('data:' + date + ' beginTime:' + beginTime);
     if (date < beginTime) {
       dd.alert({ content: '计划还未开始', buttonText: '确定' });
       return;
@@ -114,12 +131,12 @@ Page({
               });
             }
           },
-          fail: function (res) {
+          fail: function(res) {
             dd.alert({ content: '验证位置异常', buttonText: '确定' });
             dd.hideLoading();
             //console.info(res);
           },
-          complete: function (res) {
+          complete: function(res) {
             dd.hideLoading();
             //dd.alert({ content: 'complete' });
           }
@@ -180,11 +197,11 @@ Page({
                     dd.alert({ content: result.msg, buttonText: '确定' });
                   }
                 },
-                fail: function (res) {
+                fail: function(res) {
                   dd.alert({ content: '提交数据异常', buttonText: '确定' });
                   //console.info(res);
                 },
-                complete: function (res) {
+                complete: function(res) {
                   dd.hideLoading();
                   //dd.alert({ content: 'complete' });
                 }

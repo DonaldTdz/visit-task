@@ -1,0 +1,39 @@
+<view>
+  <view>
+    <list>
+      <list-item>      采集烟农                                                                                                                                                                                                      
+        <view slot="extra">{{growerName}}                        
+        </view>
+      </list-item>
+      <list-item wrap="{{true}}" class="location" multipleLine="{{true}}" arrow="{{true}}" onClick="getLocation" thumb="/image/location.png">{{location == ''? '点击获取所在位置':location}}                  
+      </list-item>
+      <list-item wrap="{{true}}" multipleLine="{{true}}" last="{{true}}">拍照                                                                                                           
+        <view class="am-list-brief" onTap="previewImage" a:if="{{imgPaths.length > 0}}">
+          <block a:for="{{imgPaths}}">
+            <image index="{{index}}" src="{{host + item}}" class="pimage" mode="scaleToFill" />
+          </block>
+        </view>
+        <view slot="extra" onTap="chooseImage">
+          <image src="/image/photo.png" class="photo" mode="scaleToFill" />
+        </view>
+        <view class="am-list-brief fsize12">最多可采集3张照片                        
+        </view>
+      </list-item>
+    </list>
+  </view>
+  <view class="section">
+    <view class="section-title">面积                
+    </view>
+    <input type="number" maxlength="8" onBlur="bindTextAreaBlur" placeholder="输入落实面积" name="area" value="{{area}}" />
+  </view>
+  <view class="section">
+    <view class="section-title">备注                
+    </view>
+    <textarea onBlur="bindTextRemarkBlur" auto-height placeholder="输入备注" name="remark" value="{{remark}}" maxlength="500" />
+  </view>
+  <view class="page-margin page-padding-bottom">
+    <button type="primary" onTap="saveArea">保存           
+    </button>
+  </view>
+</view>
+</view>
