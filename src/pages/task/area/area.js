@@ -111,7 +111,48 @@ Page({
 
   },
   saveArea() {
+    //验证
+    if (this.data.location == '') {
+      dd.alert({ title: '请获取位置信息', buttonText: '确定' });
+      return;
+    }
+    
+    if (this.data.imgPaths.length == 0) {
+      dd.alert({ title: '请上传拍照', buttonText: '确定'});
+      return;
+    }
 
+    var jsonData = JSON.stringify(this.data);
+    var that = this;
+
+    dd.showLoading();
+    dd.httpRequest({
+      url: app.globalData.host + 'api/services/app/GrowerAreaRecord/SaveGrowerAreaRecordAsync',
+      method: 'Post',
+      headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
+      data: jsonData,
+      dataType: 'json',
+      success: (res) => {
+        dd.hideLoading();
+        //console.info(res.data.result);
+        var result = res.data.result;
+        if (result.code == 0) {
+          dd.alert({ content: result.msg, buttonText: '确定' });
+          dd.navigateBack();
+        } else {
+          dd.alert({ content: result.msg, buttonText: '确定' });
+        }
+      },
+      fail: function(res) {
+        dd.hideLoading();
+        dd.alert({ content: '提交数据异常', buttonText: '确定' });
+        console.info(res);
+      },
+      complete: function(res) {
+        dd.hideLoading();
+        //dd.alert({ content: 'complete' });
+      }
+    });
   },
   onShareAppMessage() {
     // 返回自定义分享信息
