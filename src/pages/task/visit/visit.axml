@@ -68,7 +68,7 @@
       </view>
       <block a:if="{{vgDetail.visitRecords.length == 0}}">
         <list-item last="true">
-          <view class="nodata">还没有面积落实记录，点击新增采集
+          <view class="nodata">当前任务还没有记录，点击新增采集
           </view>
         </list-item>
       </block>
