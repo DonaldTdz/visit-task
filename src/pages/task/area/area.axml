@@ -22,9 +22,10 @@
     </list>
   </view>
   <view class="section">
-    <view class="section-title">面积                
+    <view class="section-title">面积（亩）                
     </view>
     <input type="number" maxlength="8" onBlur="bindTextAreaBlur" placeholder="输入落实面积" name="area" value="{{area}}" />
+     <view class="section-title am-list-brief fsize12">输入数字，保留2位小数</view>
   </view>
   <view class="section">
     <view class="section-title">备注                
@@ -32,7 +33,7 @@
     <textarea onBlur="bindTextRemarkBlur" auto-height placeholder="输入备注" name="remark" value="{{remark}}" maxlength="500" />
   </view>
   <view class="page-margin page-padding-bottom">
-    <button type="primary" onTap="saveArea">保存           
+    <button type="primary" onTap="saveArea">新增           
     </button>
   </view>
 </view>

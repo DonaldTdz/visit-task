@@ -16,6 +16,13 @@
       </list-item>
     </list>
   </view>
+  <list>
+    <view slot="header">备注
+      </view>
+      <list-item>
+        <view>{{visit.desc}}</view>
+      </list-item>
+  </list>
   <view a:if="{{visit.examines.length > 0}}">
     <list>
       <view slot="header">烟农考核信息

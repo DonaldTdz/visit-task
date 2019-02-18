@@ -34,7 +34,7 @@
         <view slot="extra">{{vgDetail.growerInfo.plantingArea}}亩
         </view>
       </list-item>
-       <list-item>
+      <list-item a:if="{{vgDetail.growerInfo.actualArea}}">
         <view>落实面积
         </view>
         <view slot="extra">{{vgDetail.growerInfo.actualArea}}亩
@@ -73,10 +73,10 @@
         </list-item>
       </block>
       <block a:for="{{vgDetail.visitRecords}}">
-        <list-item thumb="{{host + item.imgTop}}" key="item-{{index}}" index="{{index}}" onClick="goDetail" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">      {{item.timeFormat}}                       
+        <list-item thumb="{{host + item.imgTop}}" key="item-{{index}}" index="{{index}}" onClick="goAreaDetail" last="{{index === (vgDetail.visitRecords.length - 1)}}" arrow="{{true}}" wrap="{{true}}">{{item.timeFormat}}                       
           <view class="am-list-brief fsize12">{{item.location}}
           </view>
-          <view slot="extra" class="fsize12">详细
+          <view slot="extra" class="fsize12">{{item.area}}亩
           </view>
         </list-item>
       </block>
@@ -92,7 +92,7 @@
       </button>
     </view>
     <view class="page-margin" a:if="{{vgDetail.taskType == 5}}">
-      <button type="primary" onTap="" disabled="{{vgDetail.visitRecords.length == 0? true : false}}">提交落实面积
+      <button type="primary" onTap="submitArea" disabled="{{vgDetail.visitRecords.length == 0? true : false}}">提交落实面积
       </button>
     </view>
   </block>

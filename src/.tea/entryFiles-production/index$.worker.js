@@ -133,5 +133,7 @@ require('../../pages/task/task-detail/task-detail');
 require('../../pages/task/visit/visit');
 require('../../pages/task/go-visit/go-visit');
 require('../../pages/task/visit-detail/visit-detail');
+require('../../pages/task/area/area');
+require('../../pages/task/area-detail/area-detail');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();

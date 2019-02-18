@@ -14,6 +14,7 @@ Page({
   },
   onLoad(query) {
     this.setData({ scheduleDetailId: query.id, growerName: query.name, host: app.globalData.host });
+    this.getLocation();
   },
   bindTextAreaBlur: function(e) {
     //console.log('描述是：',e.detail.value)
@@ -22,19 +23,19 @@ Page({
   bindTextRemarkBlur: function() {
     this.setData({ remark: e.detail.value });
   },
-  getImgPaths(imgs, type){
-    if(type == 1) {
+  getImgPaths(imgs, type) {
+    if (type == 1) {
       let imgstrs = '';
-      for(var i in imgs){
+      for (var i in imgs) {
         imgstrs += imgs[i];
-        if(i != imgs.length - 1){
+        if (i != imgs.length - 1) {
           imgstrs += ',';
         }
       }
       return imgstrs;
     } else {
       let imgarr = [];
-      for(var i in imgs){
+      for (var i in imgs) {
         imgarr.push(app.globalData.host + imgs[i]);
       }
       return imgarr;
@@ -112,13 +113,18 @@ Page({
   },
   saveArea() {
     //验证
-    if (this.data.location == '') {
+    if (!this.data.location) {
       dd.alert({ title: '请获取位置信息', buttonText: '确定' });
       return;
     }
-    
+
     if (this.data.imgPaths.length == 0) {
-      dd.alert({ title: '请上传拍照', buttonText: '确定'});
+      dd.alert({ title: '请上传拍照', buttonText: '确定' });
+      return;
+    }
+
+    if (!this.data.area) {
+      dd.alert({ title: '请输入面积', buttonText: '确定' });
       return;
     }
 
@@ -135,12 +141,19 @@ Page({
       success: (res) => {
         dd.hideLoading();
         //console.info(res.data.result);
-        var result = res.data.result;
-        if (result.code == 0) {
-          dd.alert({ content: result.msg, buttonText: '确定' });
-          dd.navigateBack();
+        var result = res.data;
+        if (result.success == true) {
+          //dd.alert({ content: "采集数据成功", buttonText: '确定' });
+          dd.showToast({
+            type: 'success',
+            content: '采集成功',
+            duration: 3000,
+            success: () => {
+               dd.navigateBack();
+            },
+          });
         } else {
-          dd.alert({ content: result.msg, buttonText: '确定' });
+          dd.alert({ content: result.error.message, buttonText: '确定' });
         }
       },
       fail: function(res) {

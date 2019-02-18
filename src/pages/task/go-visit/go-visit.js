@@ -37,7 +37,7 @@ Page({
       },
       fail: function(res) {
         //console.info(res);
-        dd.alert({ content: '初始化信息异常', buttonText: '确定'});
+        dd.alert({ content: '初始化信息异常', buttonText: '确定' });
         dd.hideLoading();
       },
       complete: function(res) {
@@ -67,19 +67,19 @@ Page({
     }
     //console.log('数组：', this.data.examines);
   },
-  getImgPaths(imgs, type){
-    if(type == 1) {
+  getImgPaths(imgs, type) {
+    if (type == 1) {
       let imgstrs = '';
-      for(var i in imgs){
+      for (var i in imgs) {
         imgstrs += imgs[i];
-        if(i != imgs.length - 1){
+        if (i != imgs.length - 1) {
           imgstrs += ',';
         }
       }
       return imgstrs;
     } else {
       let imgarr = [];
-      for(var i in imgs){
+      for (var i in imgs) {
         imgarr.push(app.globalData.host + imgs[i]);
       }
       return imgarr;
@@ -88,10 +88,10 @@ Page({
   chooseImage() {
     var that = this;
     const imgpaths = that.data.imgPaths;
-    if(imgpaths.length >= 3){
-        dd.alert({ title: `亲`, content: `采集照片已经超过3张`, buttonText: '确定' });
-        return;
-    } 
+    if (imgpaths.length >= 3) {
+      dd.alert({ title: `亲`, content: `采集照片已经超过3张`, buttonText: '确定' });
+      return;
+    }
     dd.showLoading();
     dd.chooseImage({
       sourceType: ['camera'],
@@ -165,7 +165,7 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '定位失败', buttonText: '确定'});
+        dd.alert({ title: '定位失败', buttonText: '确定' });
       },
     })
   },
@@ -177,7 +177,7 @@ Page({
     }
     const imgstrs = this.getImgPaths(this.data.imgPaths, 1);
     if (imgstrs == '') {
-      dd.alert({ title: '请上传拍照', buttonText: '确定'});
+      dd.alert({ title: '请上传拍照', buttonText: '确定' });
       return;
     }
     this.data.imgPath = imgstrs;
@@ -210,11 +210,19 @@ Page({
         //console.info(res.data.result);
         var result = res.data.result;
         if (result.code == 0) {
-          dd.alert({ content: result.msg, buttonText: '确定' });
+          //dd.alert({ content: result.msg, buttonText: '确定' });
           /*dd.redirectTo({
             url: "../visit/visit?id=" + that.data.scheduleDetailId,
           });*/
-          dd.navigateBack();
+          dd.showToast({
+            type: 'success',
+            content: result.msg,
+            duration: 3000,
+            success: () => {
+              dd.navigateBack();
+            },
+          });
+          //dd.navigateBack();
         } else {
           dd.alert({ content: result.msg, buttonText: '确定' });
         }

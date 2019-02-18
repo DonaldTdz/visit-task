@@ -64,7 +64,7 @@ Page({
     console.log("this.data.vgDetail.taskType:" + this.data.vgDetail.taskType);
     if (this.data.vgDetail.taskType == 5) {//如果是面积落实
       dd.navigateTo({
-        url: "../area/area?id=" + that.data.id + "&name="+that.data.vgDetail.growerInfo.name,
+        url: "../area/area?id=" + that.data.id + "&name=" + that.data.vgDetail.growerInfo.name,
       });
       return;
     }
@@ -225,9 +225,61 @@ Page({
       },
     });
   },
+  submitArea() {
+    var that = this;
+    dd.confirm({
+      title: '确认',
+      content: '确定提交面积采落实数据，提交后将不可修改',
+      confirmButtonText: '提交',
+      cancelButtonText: '取消',
+      success: (result) => {
+        if (result.confirm) {
+          dd.showLoading();
+          dd.httpRequest({
+            url: app.globalData.host + 'api/services/app/GrowerAreaRecord/SubmitGrowerAreaAsync',
+            method: 'Post',
+            headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
+            data: { id: that.data.id },
+            dataType: 'json',
+            success: (res) => {
+              dd.hideLoading();
+              //console.info(res.data.result);
+              var result = res.data;
+              if (result.success == true) {
+                dd.showToast({
+                  type: 'success',
+                  content: '提交成功',
+                  duration: 3000,
+                  success: () => {
+                    that.getVisitGrowerDetail();
+                  },
+                });
+              } else {
+                dd.alert({ content: result.error.message, buttonText: '确定' });
+              }
+            },
+            fail: function(res) {
+              dd.hideLoading();
+              dd.alert({ content: '提交数据异常', buttonText: '确定' });
+              console.info(res);
+            },
+            complete: function(res) {
+              dd.hideLoading();
+              //dd.alert({ content: 'complete' });
+            }
+          });
+        }
+      },
+    });
+  },
   goDetail(data) {
     dd.navigateTo({
       url: "../visit-detail/visit-detail?id=" + this.data.vgDetail.visitRecords[data.index].id,
+    });
+  },
+  goAreaDetail(data) {
+    dd.navigateTo({
+      url: "../area-detail/area-detail?id=" + this.data.vgDetail.visitRecords[data.index].id,
     });
   },
   onShareAppMessage() {
