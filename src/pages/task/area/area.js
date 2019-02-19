@@ -13,14 +13,14 @@ Page({
     growerName: ''
   },
   onLoad(query) {
-    this.setData({ scheduleDetailId: query.id, growerName: query.name, host: app.globalData.host });
+    this.setData({ scheduleDetailId: query.id, growerName: query.name, host: app.globalData.host, imgPaths: [] });
     this.getLocation();
   },
   bindTextAreaBlur: function(e) {
     //console.log('描述是：',e.detail.value)
     this.setData({ area: e.detail.value });
   },
-  bindTextRemarkBlur: function() {
+  bindTextRemarkBlur: function(e) {
     this.setData({ remark: e.detail.value });
   },
   getImgPaths(imgs, type) {

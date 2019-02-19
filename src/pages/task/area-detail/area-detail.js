@@ -51,10 +51,10 @@ Page({
         if (result.confirm) {
           dd.showLoading();
           dd.httpRequest({
-            url: app.globalData.host + 'api/services/app/GrowerAreaRecord/PostDeleteAsync',
+            url: app.globalData.host + 'api/services/app/GrowerAreaRecord/PostDeleteAsync?id=' + that.data.id,
             method: 'Post',
             headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
-            data: { id: that.data.id },
+            data: { },
             dataType: 'json',
             success: (res) => {
               dd.hideLoading();
@@ -76,7 +76,8 @@ Page({
             fail: function(res) {
               dd.hideLoading();
               dd.alert({ content: '提交数据异常', buttonText: '确定' });
-              console.info(res);
+              //dd.alert({ content: JSON.stringify(res), buttonText: '确定' });
+              //console.info(res);
             },
             complete: function(res) {
               dd.hideLoading();

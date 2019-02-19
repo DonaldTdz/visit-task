@@ -181,10 +181,18 @@ Page({
                 data: {},//JSON.stringify(postjson),
                 dataType: 'json',
                 success: (res2) => {
-                  console.info(res2.data.result);
+                  //console.info(res2.data.result);
                   var result = res2.data.result;
                   if (result.code == 0) {
-                    dd.alert({ content: result.msg, buttonText: '确定' });
+                    //dd.alert({ content: result.msg, buttonText: '确定' });
+                    dd.showToast({
+                      type: 'success',
+                      content: result.msg,
+                      duration: 3000,
+                      success: () => {
+                        
+                      },
+                    });
                     that.setData(
                       {
                         isGetPosition: true,
@@ -227,6 +235,7 @@ Page({
   },
   submitArea() {
     var that = this;
+     var jsonData = JSON.stringify({ id: that.data.id });
     dd.confirm({
       title: '确认',
       content: '确定提交面积采落实数据，提交后将不可修改',
@@ -239,7 +248,7 @@ Page({
             url: app.globalData.host + 'api/services/app/GrowerAreaRecord/SubmitGrowerAreaAsync',
             method: 'Post',
             headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
-            data: { id: that.data.id },
+            data: jsonData,
             dataType: 'json',
             success: (res) => {
               dd.hideLoading();
