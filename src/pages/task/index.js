@@ -8,6 +8,7 @@ Page({
     { name: '待完成', num: 200, percent: 0.2, a: '1' },
     { name: '逾期', num: 100, percent: 0.1, a: '1' }],
     chart: null,
+    isShowChat: true,
   },
   onLoad(query) {
     //console.info(`app.globalData: ${JSON.stringify(app.globalData)}`);
@@ -22,49 +23,49 @@ Page({
       dd.showLoading();
       //免登陆
       dd.getAuthCode({
-      success: (res) => {
-      //  console.log('My authCode', res.authCode);
-      dd.httpRequest({
-        url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
-        method: 'Get',
-        data: {
-          code: res.authCode,
-          appId: app.globalData.appId
-        },
-        dataType: 'json',
         success: (res) => {
-          dd.hideLoading();
-          //console.log('res', res);
-          app.globalData.userInfo = res.data.result;
-          if (app.globalData.userInfo.avatar == ''){
-            app.globalData.userInfo.avatar = '../../image/logo.jpeg';
-          }
-          //console.log('app user info', app.userInfo);
-          this.setData({ userInfo: app.globalData.userInfo });
+          //  console.log('My authCode', res.authCode);
+          dd.httpRequest({
+            url: app.globalData.host + 'api/services/app/Employee/GetDingDingUserByCodeAsync',
+            method: 'Get',
+            data: {
+              code: res.authCode,
+              appId: app.globalData.appId
+            },
+            dataType: 'json',
+            success: (res) => {
+              dd.hideLoading();
+              //console.log('res', res);
+              app.globalData.userInfo = res.data.result;
+              if (app.globalData.userInfo.avatar == '') {
+                app.globalData.userInfo.avatar = '../../image/logo.jpeg';
+              }
+              //console.log('app user info', app.userInfo);
+              this.setData({ userInfo: app.globalData.userInfo });
 
-          this.getScheduleTasks();
+              this.getScheduleTasks();
 
-          this.onDraw(this.data.chart);
-          //this.userInfo = res.data.result;
-          //dd.alert({ content: 'success' });
+              this.onDraw(this.data.chart);
+              //this.userInfo = res.data.result;
+              //dd.alert({ content: 'success' });
+            },
+            fail: function(res) {
+              console.log('error res', JSON.stringify(res));
+              //dd.alert({ content: 'error:'+JSON.stringify(res), buttonText: '确定' });
+              dd.hideLoading();
+              dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
+            },
+            complete: function(res) {
+              dd.hideLoading();
+              //dd.alert({ content: 'complete' });
+            }
+          });
         },
-        fail: function(res) {
-          console.log('error res', JSON.stringify(res));
-          //dd.alert({ content: 'error:'+JSON.stringify(res), buttonText: '确定' });
+        fail: function(err) {
+          dd.alert({ content: '授权出错', buttonText: '确定' });
           dd.hideLoading();
-          dd.alert({ content: '获取用户信息异常', buttonText: '确定' });
-        },
-        complete: function(res) {
-          dd.hideLoading();
-          //dd.alert({ content: 'complete' });
         }
       });
-      },
-      fail: function(err) {
-        dd.alert({ content: '授权出错', buttonText: '确定' });
-        dd.hideLoading();
-      }
-    });
     } else {
       this.setData({ userInfo: app.globalData.userInfo });
       this.getScheduleTasks();
@@ -107,7 +108,7 @@ Page({
     //dd.alert({ content: "显示了"});
     // 页面显示
     this.getScheduleTasks();
-    if (this.data.chart){
+    if (this.data.chart) {
       this.onDraw(this.data.chart);
     }
   },
@@ -144,6 +145,14 @@ Page({
           this.setData({ chartItems: res.data.result });
           var map = {};
           const chartDataNew = this.data.chartItems;
+         //console.log(JSON.stringify(chartDataNew));
+          if (chartDataNew.length == 2) {
+            if (chartDataNew[0].num == 0 && chartDataNew[1].num == 0) {
+              this.setData({ isShowChat: false });
+            }
+          } else {
+            this.setData({ isShowChat: false });
+          }
           chartDataNew.map(function(obj) {
             map[obj.name] = obj.num + '（' + obj.percent + '%）';
           });
@@ -209,11 +218,11 @@ Page({
     dd.getLocation({
       type: 1,
       success(res) {
-        dd.alert({ title: 'res:'+JSON.stringify(res)});
+        dd.alert({ title: 'res:' + JSON.stringify(res) });
         //console.log(res)
-        dd.alert({ title: 'address:' + res.address});
+        dd.alert({ title: 'address:' + res.address });
         const reslocation = (res.province ? res.province : '') + res.city + (res.district ? res.district : '') + (res.streetNumber ? res.streetNumber.street : '');
-        dd.alert({ title: 'reslocation:' + reslocation});
+        dd.alert({ title: 'reslocation:' + reslocation });
       },
       fail() {
         dd.hideLoading();
