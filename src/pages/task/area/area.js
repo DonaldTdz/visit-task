@@ -104,7 +104,7 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '定位失败', buttonText: '确定' });
+        dd.alert({ title: '亲', content:'定位失败，请重试', buttonText: '确定' });
       },
     })
   },
@@ -114,17 +114,17 @@ Page({
   saveArea() {
     //验证
     if (!this.data.location) {
-      dd.alert({ title: '请获取位置信息', buttonText: '确定' });
+      dd.alert({ title: '亲', content: '请获取位置信息', buttonText: '确定' });
       return;
     }
 
     if (this.data.imgPaths.length == 0) {
-      dd.alert({ title: '请上传拍照', buttonText: '确定' });
+      dd.alert({ title: '亲', content: '请上传拍照', buttonText: '确定' });
       return;
     }
 
     if (!this.data.area) {
-      dd.alert({ title: '请输入面积', buttonText: '确定' });
+      dd.alert({ title: '亲', content: '请输入面积', buttonText: '确定' });
       return;
     }
 

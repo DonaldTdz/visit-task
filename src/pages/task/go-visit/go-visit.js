@@ -16,7 +16,7 @@ Page({
     scheduleDetailId: '',
   },
   onLoad(query) {
-    this.setData({ scheduleDetailId: query.id, host: app.globalData.host });
+    this.setData({ scheduleDetailId: query.id, host: app.globalData.host, imgPaths: [] });
     dd.showLoading();
     this.getInitInfo();
     this.getLocation();
@@ -165,19 +165,19 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '定位失败', buttonText: '确定' });
+        dd.alert({ title: '亲', content:'定位失败，请重试', buttonText: '确定' });
       },
     })
   },
   saveVisit() {
     //验证
     if (this.data.location == '') {
-      dd.alert({ title: '请获取位置信息', buttonText: '确定' });
+      dd.alert({ title: '亲', content:'请获取位置信息', buttonText: '确定' });
       return;
     }
     const imgstrs = this.getImgPaths(this.data.imgPaths, 1);
     if (imgstrs == '') {
-      dd.alert({ title: '请上传拍照', buttonText: '确定' });
+      dd.alert({ title: '亲', content:'请上传拍照', buttonText: '确定' });
       return;
     }
     this.data.imgPath = imgstrs;
@@ -185,7 +185,7 @@ Page({
       //console.info(item);
       if (this.data.examines[i].score == 0) {
         //bo = true;
-        dd.alert({ title: '请填写考核结果', buttonText: '确定' });
+        dd.alert({ title: '亲', content:'请填写考核结果', buttonText: '确定' });
         return;
       }
     }
