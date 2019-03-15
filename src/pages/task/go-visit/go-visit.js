@@ -97,10 +97,11 @@ Page({
       sourceType: ['camera'],
       count: 1,
       success: res => {
-        //console.log(res);
+        // console.log(res);
         const path = (res.filePaths && res.filePaths[0]) || (res.apFilePaths && res.apFilePaths[0]);
-        //dd.alert({ content: `内容：${path}` });
-        //console.log(that.data.host + 'GYISMSFile/FilesPostsAsync');
+        // dd.alert({ content: `内容：${path}` });
+        // console.log(that.data.host + 'GYISMSFile/FilesPostsAsync');
+        // dd.alert({ content: `URL：${that.data.host + 'GYISMSFile/FilesPostsAsync'}` });
         dd.uploadFile({
           url: that.data.host + 'GYISMSFile/FilesPostsAsync',
           fileType: 'image',
@@ -165,7 +166,7 @@ Page({
       },
       fail() {
         dd.hideLoading();
-        dd.alert({ title: '亲', content:'定位失败，请重试', buttonText: '确定' });
+        dd.alert({ title: '亲', content: '定位失败，请重试', buttonText: '确定' });
       },
     })
   },
@@ -183,9 +184,13 @@ Page({
     this.data.imgPath = imgstrs;
     for (var i in this.data.examines) {
       //console.info(item);
-      if (this.data.examines[i].score == 0) {
+      if (this.data.examines[i].score == null) {
         //bo = true;
-        dd.alert({ title: '亲', content:'请填写考核结果', buttonText: '确定' });
+        dd.alert({ title: '亲', content: '请填写考核结果', buttonText: '确定' });
+        return;
+      }
+      if (this.data.examines[i].score == 1 && this.data.desc.replace(/(^s*)|(s*$)/g, "").length == 0) {
+        dd.alert({  title: '亲',content: '请填写备注', buttonText: '确定' });
         return;
       }
     }

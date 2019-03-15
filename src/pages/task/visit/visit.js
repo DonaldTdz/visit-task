@@ -85,6 +85,7 @@ Page({
     dd.showLoading();
     dd.getLocation({
       success(res) {
+        console.log(res);
         /*const postjson = {
           id: that.data.vgDetail.growerInfo.id,
           longitude: res.longitude,
@@ -92,7 +93,7 @@ Page({
         };*/
         dd.httpRequest({
           url: app.globalData.host + 'api/services/app/VisitRecord/ValidateLocationAsync?lat=' + res.latitude + '&lon=' + res.longitude
-            + '&latGrower=' + that.data.latitude + '&lonGrower=' + that.data.longitude,
+            + '&latGrower=' + that.data.latitude + '&lonGrower=' + that.data.longitude+ '&empId=' + app.globalData.userInfo.id,
           method: 'Post',
           headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
           data: {},//JSON.stringify(postjson),
@@ -147,7 +148,9 @@ Page({
         dd.alert({ title: '定位失败', buttonText: '确定' });
       },
     });
-
+              // dd.navigateTo({
+              //   url: "../go-visit/go-visit?id=" + that.data.id,
+              // });
   },
   getPosition() {
     var that = this;
