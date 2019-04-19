@@ -2,6 +2,9 @@
   <view a:if="{{userInfo.name}}">
     <card thumb="{{userInfo.avatar}}" title="{{userInfo.name}}" subTitle="{{userInfo.area + '-' + userInfo.position}}" arrow={{false}} />
   </view>
+  <view style="text-align:center;">
+    <text onTap="goDown" style="color:gray;font-size:14px;text-decoration:underline"><u>点击前往离线App下载页面</u></text>
+  </view>
   <view >
     <view class="container" a:if="{{isShowChat}}">
       <dd-charts canvasId="ddchart-task-bar" onDraw="onDraw"></dd-charts>

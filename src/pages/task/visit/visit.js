@@ -10,6 +10,7 @@ Page({
     lastNum: null,
     showPosition: false,
     limitNum: 0,
+    growerId:''
   },
   onLoad(query) {
     this.setData({ id: query.id, host: app.globalData.host });
@@ -35,6 +36,7 @@ Page({
         //console.info(`schedule: ${JSON.stringify(res.data.result)}`);
         var num = res.data.result.growerInfo.limitNum - res.data.result.growerInfo.collectNum >= 0 ? res.data.result.growerInfo.limitNum - res.data.result.growerInfo.collectNum : 0;
         this.setData({ vgDetail: res.data.result, limitNum: res.data.result.growerInfo.limitNum, lastNum: num });
+        this.data.growerId = res.data.result.growerId;
         if (res.data.result.growerInfo.longitude && res.data.result.growerInfo.latitude) {
           this.setData({ isGetPosition: true, longitude: res.data.result.growerInfo.longitude, latitude: res.data.result.growerInfo.latitude });
         };
@@ -93,7 +95,7 @@ Page({
         };*/
         dd.httpRequest({
           url: app.globalData.host + 'api/services/app/VisitRecord/ValidateLocationAsync?lat=' + res.latitude + '&lon=' + res.longitude
-            + '&latGrower=' + that.data.latitude + '&lonGrower=' + that.data.longitude+ '&empId=' + app.globalData.userInfo.id,
+            + '&latGrower=' + that.data.latitude + '&lonGrower=' + that.data.longitude+ '&empId=' + app.globalData.userInfo.id+ '&growerId=' + that.data.growerId,
           method: 'Post',
           headers: { 'Content-Type': 'application/json;charset=UTF-8', "Accept": 'application/json' },
           data: {},//JSON.stringify(postjson),

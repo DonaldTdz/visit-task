@@ -7,7 +7,8 @@
     "pages/task/go-visit/go-visit",
     "pages/task/visit-detail/visit-detail",
     "pages/task/area/area",
-    "pages/task/area-detail/area-detail"
+    "pages/task/area-detail/area-detail",
+    "pages/down/down"
   ],
   "window": {
     "defaultTitle": "拜访任务",

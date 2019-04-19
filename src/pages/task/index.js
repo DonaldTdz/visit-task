@@ -95,6 +95,13 @@ Page({
       });
     }
   },
+
+  goDown(){
+        dd.navigateTo({
+      url: "../down/down",
+    });
+  },
+
   goDetalil(data) {
     //console.info(`dd data: ${JSON.stringify(data)}`);
     dd.navigateTo({

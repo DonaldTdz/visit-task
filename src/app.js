@@ -1,8 +1,8 @@
 App({
   globalData: {
     userInfo: { id: '', name: '', position: '', avatar: '' },
-    //host: 'http://gy.intcov.com/',
-    //host: 'http://127.0.0.1:21021/',
+    // host: 'http://gy.intcov.com/',
+    // host: 'http://127.0.0.1:21021/',
     host: 'http://www.scgyyc.com/',
     // host: 'http://yangfan.vaiwan.com/',
     corpId: '',
