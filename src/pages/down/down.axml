@@ -1,35 +1,3 @@
-<view a:if="{{info}}" class="page-margin">
-  <list>
-    <view slot="header">离线应用</view>
-    <list-item disabled="{{true}}">
-      <view class="fsize14">应用名称</view>
-      <view class="fsize14" slot="extra">{{info.appName}}</view>
-    </list-item >
-    <list-item disabled="{{true}}">
-      <view class="fsize14" style="float:left;width:20%;">最新版本</view>
-      <view class="fsize14" style="color:#888; text-align:right; float:right;width:80%;">{{info.version}}</view>
-    </list-item>
-        <list-item disabled="{{true}}">
-      <view class="fsize14" style="float:left;width:20%;">登陆账号</view>
-      <view class="fsize14" style="color:#888; text-align:right; float:right;width:80%;">{{info.account}}</view>
-    </list-item>
-        <list-item disabled="{{true}}">
-      <view class="fsize14" style="float:left;width:20%;">登陆密码</view>
-      <view class="fsize14" style="color:#888; text-align:right; float:right;width:80%;">{{info.password}}</view>
-    </list-item>
-    <!-- <list-item last="{{true}}" disabled="{{true}}">
-      <view class="fsize14">发布时间</view>
-      <view class="fsize14" slot="extra">{{info.}}</view>
-    </list-item> -->
-  </list>
-    <view class="page-margin" >
-    <!-- <button type="primary" onTap="goDownUrl">点击下载
-    </button> -->
-      <view style="text-align:center;">
-    <text onTap="goDown" style="color:gray;font-size:14px;">请用手机浏览器打开以下网址下载App</text>
-  </view>
-    <view style="text-align:center;margin-top:10px;">
-      <text style="font-size:20px;">{{info.downloadUrl}}</text>
-        </view>
-  </view>
-</view>
+
+<web-view id="web-view-1" src="{{src}}"></web-view>
+

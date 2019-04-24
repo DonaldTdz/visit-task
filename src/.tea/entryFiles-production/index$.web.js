@@ -17,3 +17,4 @@ require('../../pages/task/go-visit/go-visit');
 require('../../pages/task/visit-detail/visit-detail');
 require('../../pages/task/area/area');
 require('../../pages/task/area-detail/area-detail');
+require('../../pages/down/down');

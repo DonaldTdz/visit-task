@@ -3,16 +3,18 @@ Page({
   data: {
     info: {},
     version:"",
-    appName:""
+    appName:"",
+    src :null
   },
 
   onLoad() {
-    this.getAppInfo();
+    // var url = 'http://127.0.0.1:21021/GYISMSFile/AppDownloadIndex';
+    var url = app.globalData.host + '/GYISMSFile/AppDownloadIndex?id='+app.globalData.userInfo.id;
+    this.setData({src :url});
+    // alert(this.data.src);
   },
-  goDownUrl(){
-            window.location.href = "www.baidu.com";
-  },
-  getAppInfo() {
+  
+  getAppInfo(e) {
     dd.showLoading();
     dd.httpRequest({
       url: app.globalData.host + 'api/services/app/SystemData/GetAppInfoAsnyc',
@@ -31,6 +33,9 @@ Page({
         dd.hideLoading();
       }
     });
+       dd.alert({
+      content:JSON.stringify(e.detail),
+    });  
   },
 
   onShareAppMessage() {
