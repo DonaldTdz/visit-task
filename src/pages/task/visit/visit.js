@@ -54,7 +54,7 @@ Page({
       }
     });
   },
-  goArea() {//面积落实
+  goArea() {//面积核实
     var that = this;
     var date = new Date();
     var beginTime = new Date(this.data.vgDetail.beginTimeFormat + ' 00:00:00');
@@ -64,7 +64,7 @@ Page({
       return;
     }
     console.log("this.data.vgDetail.taskType:" + this.data.vgDetail.taskType);
-    if (this.data.vgDetail.taskType == 5) {//如果是面积落实
+    if (this.data.vgDetail.taskType == 5) {//如果是面积核实
       dd.navigateTo({
         url: "../area/area?id=" + that.data.id + "&name=" + that.data.vgDetail.growerInfo.name,
       });
@@ -243,7 +243,7 @@ Page({
      var jsonData = JSON.stringify({ id: that.data.id });
     dd.confirm({
       title: '确认',
-      content: '确定提交面积采落实数据，提交后将不可修改',
+      content: '确定提交面积采核实数据，提交后将不可修改',
       confirmButtonText: '提交',
       cancelButtonText: '取消',
       success: (result) => {

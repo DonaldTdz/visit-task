@@ -170,8 +170,8 @@ Page({
   onShareAppMessage() {
     // 返回自定义分享信息
     return {
-      title: '面积落实',
-      desc: '面积落实列表',
+      title: '面积核实',
+      desc: '面积核实列表',
       path: 'pages/task/area/area',
     };
   }

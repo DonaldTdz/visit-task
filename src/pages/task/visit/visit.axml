@@ -35,7 +35,7 @@
         </view>
       </list-item>
       <list-item a:if="{{vgDetail.growerInfo.actualArea}}">
-        <view>落实面积
+        <view>核实面积
         </view>
         <view slot="extra">{{vgDetail.growerInfo.actualArea}}亩
         </view>
@@ -64,7 +64,7 @@
   </view>
   <view class="page-margin page-padding-bottom" a:if="{{vgDetail.taskType == 5}}" >
     <list>
-      <view slot="header">面积落实记录
+      <view slot="header">面积核实记录
       </view>
       <block a:if="{{vgDetail.visitRecords.length == 0}}">
         <list-item last="true">
@@ -92,7 +92,7 @@
       </button>
     </view>
     <view class="page-margin" a:if="{{vgDetail.taskType == 5}}">
-      <button type="primary" onTap="submitArea" disabled="{{vgDetail.visitRecords.length == 0? true : false}}">提交落实面积
+      <button type="primary" onTap="submitArea" disabled="{{vgDetail.visitRecords.length == 0? true : false}}">提交核实面积
       </button>
     </view>
   </block>
